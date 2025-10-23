@@ -3,31 +3,166 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Somneil - Accueil</title>
-    <link rel="stylesheet" href="css/style.css">
+    <title>SomniCare - Votre sommeil, notre priorité</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
+    <!-- Bannière élégante -->
     <header>
-        <nav>
-            <a href="index.html"><img src="assets/images/logo.png" alt="Somneil Logo" class="logo"></a>
-            <ul>
-                <li><a href="index.html">Accueil</a></li>
-                <li><a href="troubles.html">Les troubles du sommeil</a></li>
-                <li><a href="somnyl.html">Somnyl</a></li>
-                <li><a href="methode.html">Méthode</a></li>
-                <li><a href="contact.html">Contact</a></li>
-                <li><a href="reserver.html">Réserver</a></li>
-                <li><a href="login.html">S’identifier</a></li>
-            </ul>
-        </nav>
+        <div class="container">
+            <div class="header-content">
+<!-- Logo à gauche -->
+<div class="logo">
+    <div class="logo-image">
+        <img src="images/logo.png" alt="SomniCare">
+    </div>
+</div>
+
+                <!-- Navigation centrale -->
+                <nav class="main-nav">
+                    <ul class="nav-links">
+                        <li><a href="index.html" class="active">Accueil</a></li>
+                        <li><a href="troubles-sommeil.html">Les troubles du sommeil</a></li>
+                        <li><a href="somnyl.html">Somnyl</a></li>
+                        <li><a href="methode.html">Méthode</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </nav>
+
+                <!-- Côté droit - Langue et identification -->
+                <div class="header-right">
+                    <!-- Sélecteur de langue -->
+                    <div class="language-selector">
+                        <i class="fas fa-globe language-icon"></i>
+                        <span class="language-text">FR</span>
+                    </div>
+
+                    <!-- Bouton s'identifier -->
+                    <a href="connexion.html" class="btn-identifier">S'identifier</a>
+                </div>
+            </div>
+        </div>
     </header>
-    <main>
-        <h1>Accueil</h1>
-        <p>Contenu à venir...</p>
-    </main>
+
+    <!-- Navigation mobile -->
+    <nav class="mobile-nav">
+        <ul>
+            <li><a href="index.html" class="active">Accueil</a></li>
+            <li><a href="troubles-sommeil.html">Troubles</a></li>
+            <li><a href="somnyl.html">Somnyl</a></li>
+            <li><a href="connexion.html">S'identifier</a></li>
+        </ul>
+    </nav>
+    
+    <!-- Le reste de votre contenu reste inchangé -->
+    <section class="hero">
+        <div class="container">
+            <h1>SomniCare</h1>
+            <p><strong>Votre sommeil, notre priorité</strong></p>
+            <p class="tagline">Des spécialistes des solutions et les agences scientifiques pour mieux dormir. Réservez un type avec un médecin du sommeil.</p>
+        </div>
+    </section>
+    
+    <section class="stats-section">
+        <div class="container">
+            <h2>45%</h2>
+            <p>De personnes touchées par des troubles du sommeil en France</p>
+            
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <div class="stat-number">+1000</div>
+                    <div class="stat-label">Patients suivis</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">+130</div>
+                    <div class="stat-label">Spécialistes</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">80%</div>
+                    <div class="stat-label">Efficacité</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">97%</div>
+                    <div class="stat-label">Des patients recommandent</div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section class="services">
+        <div class="container">
+            <h2>Nos services pour un sommeil sain et durable</h2>
+            
+            <div class="services-grid">
+                <div class="service-card">
+                    <h3>Consultations spécialisées</h3>
+                    <p>Évaluation, diagnostic et protocole personnalisé par nos médecins du sommeil.</p>
+                </div>
+                <div class="service-card">
+                    <h3>Téléconsultations & suivi</h3>
+                    <p>Sessions vidéo, exercices guidés et suivi chiffré des progrès.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section class="testimonials">
+        <div class="container">
+            <h2>Plus de 800+ personnes ont amélioré leur sommeil</h2>
+            
+            <div class="testimonial-grid">
+                <div class="testimonial-card">
+                    <div class="testimonial-header">
+                        <div class="testimonial-avatar"></div>
+                        <div>
+                            <div class="testimonial-name">Albert Flores</div>
+                            <div class="testimonial-title">Athlète Olympique</div>
+                        </div>
+                    </div>
+                    <p class="testimonial-quote">"Grâce à SomniCare, j'ai retrouvé un sommeil réparateur essentiel pour ma performance."</p>
+                    <div class="testimonial-company">SomniCare</div>
+                </div>
+                
+                <div class="testimonial-card">
+                    <div class="testimonial-header">
+                        <div class="testimonial-avatar"></div>
+                        <div>
+                            <div class="testimonial-name">Marc</div>
+                            <div class="testimonial-title">18 ans</div>
+                        </div>
+                    </div>
+                    <p class="testimonial-quote">"J'ai retrouvé un rythme de sommeil naturel."</p>
+                    <div class="testimonial-company">SomniCare</div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section class="cta-section">
+        <div class="container">
+            <h2>Commencer</h2>
+            <p>Un premier échange pour comprendre vos besoins.</p>
+            
+            <div class="cta-buttons">
+                <a href="rendez-vous.html" class="btn btn-primary">Réserver</a>
+                <a href="methode.html" class="btn btn-secondary">En savoir plus</a>
+            </div>
+        </div>
+    </section>
+    
     <footer>
-        <p>&copy; 2025 Somneil. Tous droits réservés.</p>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">SomniCare</div>
+                <div class="footer-description">
+                    Spécialistes du sommeil — réservations avec des médecins spécialisés et solutions naturelles validées par nos experts.
+                </div>
+            </div>
+            <div class="footer-copyright">
+                © 2022 SomniCare — tous droits réservés.
+            </div>
+        </div>
     </footer>
-    <script src="js/script.js"></script>
 </body>
 </html>

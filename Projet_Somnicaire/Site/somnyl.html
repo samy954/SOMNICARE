@@ -3,31 +3,57 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Somneil - Somnyl</title>
-    <link rel="stylesheet" href="css/style.css">
+    <title>Somnyl - SomniCare</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
     <header>
-        <nav>
-            <a href="index.html"><img src="assets/images/logo.png" alt="Somneil Logo" class="logo"></a>
-            <ul>
-                <li><a href="index.html">Accueil</a></li>
-                <li><a href="troubles.html">Les troubles du sommeil</a></li>
-                <li><a href="somnyl.html">Somnyl</a></li>
-                <li><a href="methode.html">Méthode</a></li>
-                <li><a href="contact.html">Contact</a></li>
-                <li><a href="reserver.html">Réserver</a></li>
-                <li><a href="login.html">S’identifier</a></li>
-            </ul>
-        </nav>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <div class="logo-image">
+                        <img src="images/logo.png" alt="SomniCare">
+                    </div>
+                </div>
+                <nav class="main-nav">
+                    <ul class="nav-links">
+                        <li><a href="index.html">Accueil</a></li>
+                        <li><a href="troubles-sommeil.html">Les troubles du sommeil</a></li>
+                        <li><a href="somnyl.html" class="active">Somnyl</a></li>
+                        <li><a href="methode.html">Méthode</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </nav>
+                <div class="header-right">
+                    <div class="language-selector">
+                        <i class="fas fa-globe language-icon"></i>
+                        <span class="language-text">FR</span>
+                    </div>
+                    <a href="connexion.html" class="btn-identifier">S'identifier</a>
+                </div>
+            </div>
+        </div>
     </header>
-    <main>
-        <h1>Somnyl</h1>
-        <p>Contenu à venir...</p>
-    </main>
+
+    <section class="page-header">
+        <div class="container">
+            <h1>Somnyl</h1>
+        </div>
+    </section>
+
     <footer>
-        <p>&copy; 2025 Somneil. Tous droits réservés.</p>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">SomniCare</div>
+                <div class="footer-description">
+                    Spécialistes du sommeil — réservations avec des médecins spécialisés et solutions naturelles validées par nos experts.
+                </div>
+            </div>
+            <div class="footer-copyright">
+                © 2023 SomniCare — Tous droits réservés
+            </div>
+        </div>
     </footer>
-    <script src="js/script.js"></script>
 </body>
 </html>

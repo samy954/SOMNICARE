@@ -3,31 +3,191 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Somneil - Les troubles du sommeil</title>
-    <link rel="stylesheet" href="css/style.css">
+    <title>Les troubles du sommeil - SomniCare</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
+    <!-- Bannière élégante -->
     <header>
-        <nav>
-            <a href="index.html"><img src="assets/images/logo.png" alt="Somneil Logo" class="logo"></a>
-            <ul>
-                <li><a href="index.html">Accueil</a></li>
-                <li><a href="troubles.html">Les troubles du sommeil</a></li>
-                <li><a href="somnyl.html">Somnyl</a></li>
-                <li><a href="methode.html">Méthode</a></li>
-                <li><a href="contact.html">Contact</a></li>
-                <li><a href="reserver.html">Réserver</a></li>
-                <li><a href="login.html">S’identifier</a></li>
-            </ul>
-        </nav>
+        <div class="container">
+            <div class="header-content">
+                <!-- Logo à gauche -->
+                <div class="logo">
+                    <div class="logo-image">
+                        <img src="images/logo.png" alt="SomniCare">
+                    </div>
+                </div>
+
+                <!-- Navigation centrale -->
+                <nav class="main-nav">
+                    <ul class="nav-links">
+                        <li><a href="index.html">Accueil</a></li>
+                        <li><a href="troubles-sommeil.html" class="active">Les troubles du sommeil</a></li>
+                        <li><a href="somnyl.html">Somnyl</a></li>
+                        <li><a href="methode.html">Méthode</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </nav>
+
+                <!-- Côté droit - Langue et identification -->
+                <div class="header-right">
+                    <!-- Sélecteur de langue -->
+                    <div class="language-selector">
+                        <i class="fas fa-globe language-icon"></i>
+                        <span class="language-text">FR</span>
+                    </div>
+
+                    <!-- Bouton s'identifier -->
+                    <a href="connexion.html" class="btn-identifier">S'identifier</a>
+                </div>
+            </div>
+        </div>
     </header>
-    <main>
-        <h1>Les troubles du sommeil</h1>
-        <p>Contenu à venir...</p>
-    </main>
+
+    <!-- Navigation mobile -->
+    <nav class="mobile-nav">
+        <ul>
+            <li><a href="index.html">Accueil</a></li>
+            <li><a href="troubles-sommeil.html" class="active">Troubles</a></li>
+            <li><a href="somnyl.html">Somnyl</a></li>
+            <li><a href="connexion.html">S'identifier</a></li>
+        </ul>
+    </nav>
+    
+    <!-- Section titre -->
+    <section class="page-header">
+        <div class="container">
+            <h1>Les troubles du sommeil</h1>
+        </div>
+    </section>
+    
+    <!-- Section troubles -->
+    <section class="troubles-section">
+        <div class="container">
+            <!-- Trouble 1: Insomnie chronique -->
+            <div class="trouble-card">
+                <div class="trouble-header">
+                    <h2>Insomnie chronique</h2>
+                </div>
+                <div class="trouble-content">
+                    <div class="trouble-description">
+                        <p>L'insomnie touche près de 20% de la population. Elle se manifeste par des difficultés à s'endormir, des réveils nocturnes ou un sommeil non réparateur. Elle entraîne fatigue, irritabilité et baisse de concentration. Le stress, les écrans et une mauvaise hygiène du sommeil sont souvent en cause.</p>
+                    </div>
+                    
+                    <div class="trouble-details">
+                        <div class="detail-column">
+                            <h3>Symptômes fréquents</h3>
+                            <ul>
+                                <li>Difficultés d'endormissement</li>
+                                <li>Réveils répétés</li>
+                                <li>Sommeil non réparateur</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="detail-column">
+                            <h3>Risques</h3>
+                            <ul>
+                                <li>Fatigue chronique et baisse d'énergie</li>
+                                <li>Troubles de l'humeur</li>
+                                <li>Difficultés de concentration et irritabilité</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="trouble-action">
+                        <a href="#" class="btn btn-primary">Comprendre les troubles</a>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Trouble 2: Apnée du sommeil -->
+            <div class="trouble-card">
+                <div class="trouble-header">
+                    <h2>Apnée du sommeil</h2>
+                </div>
+                <div class="trouble-content">
+                    <div class="trouble-description">
+                        <p>L'apnée du sommeil touche environ 9% de la population adulte. Elle se caractérise par des pauses respiratoires pendant le sommeil, provoquant des micro-réveils et un sommeil de mauvaise qualité. Ce trouble peut entraîner fatigue diurne, maux de tête matinaux et somnolence excessive. Le surpoids, le tabagisme et la consommation d'alcool en sont des facteurs aggravants.</p>
+                    </div>
+                    
+                    <div class="trouble-details">
+                        <div class="detail-column">
+                            <h3>Symptômes fréquents</h3>
+                            <ul>
+                                <li>Ronflements importants</li>
+                                <li>Pauses respiratoires observées pendant le sommeil</li>
+                                <li>Fatigue ou somnolence excessive durant la journée</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="detail-column">
+                            <h3>Risques</h3>
+                            <ul>
+                                <li>Hypertension artérielle</li>
+                                <li>Augmentation des risques cardiovasculaires</li>
+                                <li>Impact sur la concentration</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="trouble-action">
+                        <a href="#" class="btn btn-primary">Comprendre les troubles</a>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Trouble 3: Parasomnie -->
+            <div class="trouble-card">
+                <div class="trouble-header">
+                    <h2>Parasomnie</h2>
+                </div>
+                <div class="trouble-content">
+                    <div class="trouble-description">
+                        <p>Les parasomnies regroupent divers comportements anormaux qui surviennent pendant le sommeil, tels que le somnambulisme, les terreurs nocturnes ou les cauchemars fréquents. Elles perturbent la qualité du repos et peuvent parfois entraîner des blessures involontaires. Le stress, le manque de sommeil et certains médicaments peuvent les favoriser.</p>
+                    </div>
+                    
+                    <div class="trouble-details">
+                        <div class="detail-column">
+                            <h3>Symptômes fréquents</h3>
+                            <ul>
+                                <li>Somnambulisme ou mouvements involontaires durant le sommeil</li>
+                                <li>Terreurs nocturnes ou cauchemars récurrents</li>
+                                <li>Confusion ou désorientation au réveil</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="detail-column">
+                            <h3>Risques</h3>
+                            <ul>
+                                <li>Perturbation de la qualité du sommeil</li>
+                                <li>Risques de blessures involontaires</li>
+                                <li>Impact sur le bien-être général</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="trouble-action">
+                        <a href="#" class="btn btn-primary">Comprendre les troubles</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Pied de page -->
     <footer>
-        <p>&copy; 2025 Somneil. Tous droits réservés.</p>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">SomniCare</div>
+                <div class="footer-description">
+                    Spécialistes du sommeil — réservations avec des médecins spécialisés et solutions naturelles validées par nos experts.
+                </div>
+            </div>
+            <div class="footer-copyright">
+                © 2023 SomniCare — Troubles du sommeil : Tous droits réservés
+            </div>
+        </div>
     </footer>
-    <script src="js/script.js"></script>
 </body>
 </html>

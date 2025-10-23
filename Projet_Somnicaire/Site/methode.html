@@ -3,31 +3,146 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Somneil - Méthode</title>
-    <link rel="stylesheet" href="css/style.css">
+    <title>Méthode - SomniCare</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
+    <!-- Bannière élégante -->
     <header>
-        <nav>
-            <a href="index.html"><img src="assets/images/logo.png" alt="Somneil Logo" class="logo"></a>
-            <ul>
-                <li><a href="index.html">Accueil</a></li>
-                <li><a href="troubles.html">Les troubles du sommeil</a></li>
-                <li><a href="somnyl.html">Somnyl</a></li>
-                <li><a href="methode.html">Méthode</a></li>
-                <li><a href="contact.html">Contact</a></li>
-                <li><a href="reserver.html">Réserver</a></li>
-                <li><a href="login.html">S’identifier</a></li>
-            </ul>
-        </nav>
+        <div class="container">
+            <div class="header-content">
+                <!-- Logo à gauche -->
+                <div class="logo">
+                    <div class="logo-image">
+                        <img src="images/logo.png" alt="SomniCare">
+                    </div>
+                </div>
+
+                <!-- Navigation centrale -->
+                <nav class="main-nav">
+                    <ul class="nav-links">
+                        <li><a href="index.html">Accueil</a></li>
+                        <li><a href="troubles-sommeil.html">Les troubles du sommeil</a></li>
+                        <li><a href="somnyl.html">Somnyl</a></li>
+                        <li><a href="methode.html" class="active">Méthode</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </nav>
+
+                <!-- Côté droit - Langue et identification -->
+                <div class="header-right">
+                    <!-- Sélecteur de langue -->
+                    <div class="language-selector">
+                        <i class="fas fa-globe language-icon"></i>
+                        <span class="language-text">FR</span>
+                    </div>
+
+                    <!-- Bouton s'identifier -->
+                    <a href="connexion.html" class="btn-identifier">S'identifier</a>
+                </div>
+            </div>
+        </div>
     </header>
-    <main>
-        <h1>Méthode</h1>
-        <p>Contenu à venir...</p>
-    </main>
+
+    <!-- Navigation mobile -->
+    <nav class="mobile-nav">
+        <ul>
+            <li><a href="index.html">Accueil</a></li>
+            <li><a href="troubles-sommeil.html">Troubles</a></li>
+            <li><a href="somnyl.html">Somnyl</a></li>
+            <li><a href="connexion.html">S'identifier</a></li>
+        </ul>
+    </nav>
+
+    <!-- Section titre -->
+    <section class="page-header">
+        <div class="container">
+            <h1>Méthode</h1>
+        </div>
+    </section>
+
+    <!-- SECTION 1: Méthode révolutionnaire avec chiffres -->
+    <section class="method-simple">
+        <div class="container">
+            <div class="method-header">
+                <h2>La Méthode SomniCare : 80% de Réussite Vérifiée</h2>
+                <h3>Une méthode révolutionnaire</h3>
+                <p>Une approche scientifique personnalisée qui transforme votre sommeil durablement.</p>
+            </div>
+
+            <div class="method-stats-simple">
+                <div class="stat-simple">
+                    <div class="stat-number-simple">3000+</div>
+                    <div class="stat-title-simple">Patients satisfaits</div>
+                    <div class="stat-desc-simple">Amélioration significative de la qualité de vie. Avis et retours de patients constantes sur notre site.</div>
+                </div>
+                
+                <div class="stat-simple">
+                    <div class="stat-number-simple">80%</div>
+                    <div class="stat-title-simple">Taux de réussite</div>
+                    <div class="stat-desc-simple">Résultats certifiés par des études cliniques.</div>
+                </div>
+                
+                <div class="stat-simple">
+                    <div class="stat-number-simple">14 jours</div>
+                    <div class="stat-title-simple">Premiers résultats tangibles</div>
+                    <div class="stat-desc-simple">Ceci à partir de 2 semaines que vous pourrez apprécier la redécouverte optimale d'un sommeil guidant.</div>
+                </div>
+                
+                <div class="stat-simple">
+                    <div class="stat-number-simple">100%</div>
+                    <div class="stat-title-simple">Programme adapté à chaque profil</div>
+                    <div class="stat-desc-simple">100% personnalisé pour un résultat optimal.</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 2: TCC-I (parties roses/blanches de votre maquette) -->
+    <section class="tcci-section">
+        <div class="container">
+            <div class="tcci-grid">
+                <!-- Carte 1 -->
+                <div class="tcci-card">
+                    <h3>Qu'est-ce que la TCC-I ?</h3>
+                    <p>La thérapie cognitivo-comportementale pour l'insomnie (TCC-I) est un traitement basé sur des données factuelles qui aborde les pensées et les comportements contribuant à l'insomnie chronique. Elle vise à améliorer la qualité du sommeil en changeant les habitudes et les comportements de sommeil nuisibles.</p>
+                </div>
+                
+                <!-- Carte 2 -->
+                <div class="tcci-card">
+                    <h3>Qui peut bénéficier de la TCC-I ?</h3>
+                    <p>La TCC-I convient aux personnes souffrant d'insomnie chronique, y compris celles souffrant d'insomnie primaire et d'insomnie liée à d'autres conditions telles que la dépression ou l'anxiété. Elle est idéale pour les personnes qui préfèrent les traitements non pharmacologiques ou qui n'ont pas trouvé de soulagement avec les somnifères.</p>
+                </div>
+                
+                <!-- Carte 3 (pleine largeur) -->
+                <div class="tcci-card full-width">
+                    <h3>Comment fonctionne la TCC-I ?</h3>
+                    <p>La TCC-I implique une combinaison de stratégies conçues pour traiter à la fois sur le corps et l'esprit, favorisant un meilleur sommeil. En voici les principaux éléments :</p>
+                    <div class="tcci-elements">
+                        <div class="element">Hygiène du sommeil</div>
+                        <div class="element">Thérapie cognitive</div>
+                        <div class="element">Contrôle des stimuli</div>
+                        <div class="element">Techniques de relaxation</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pied de page -->
     <footer>
-        <p>&copy; 2025 Somneil. Tous droits réservés.</p>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">SomniCare</div>
+                <div class="footer-description">
+                    Spécialistes du sommeil — réservations avec des médecins spécialisés et solutions naturelles validées par nos experts.
+                </div>
+            </div>
+            <div class="footer-copyright">
+                © 2023 SomniCare — Méthode - Tous droits réservés
+            </div>
+        </div>
     </footer>
-    <script src="js/script.js"></script>
 </body>
 </html>
