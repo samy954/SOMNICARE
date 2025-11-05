@@ -3,7 +3,7 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: Arial, sans-serif;
+    font-family: Ar ial, sans-serif;
 }
 
 body {
@@ -515,7 +515,7 @@ footer {
         color: white;
         text-decoration: none;
         font-size: 14px;
-    }
+    }}
 /* SECTION MÉTHODE - SIMPLE ET PROPRE */
 .method-simple {
     padding: 80px 0;
@@ -611,8 +611,147 @@ footer {
     .stat-title-simple {
         font-size: 18px;
     }
-    
+
     .stat-desc-simple {
         font-size: 15px;
+    }}/* === SOMNYL (FINALE) === */
+    .somnyl-final {
+        padding: 80px 0;
     }
+
+    .product-final {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 60px;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 60px;
+    }
+
+    .product-final .product-image img {
+        max-width: 380px;
+        border-radius: 10px;
+        box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+    }
+
+    .product-final .product-details {
+        max-width: 450px;
+    }
+
+    .product-final .product-details h2 {
+        color: #2c3e50;
+        font-size: 28px;
+        margin-bottom: 10px;
+    }
+
+    .product-final .price {
+        color: #3498db;
+        font-weight: bold;
+        font-size: 1.5rem;
+        margin-bottom: 15px;
+    }
+
+    .product-final .subtitle {
+        color: #555;
+        font-style: italic;
+        margin-bottom: 20px;
+    }   
+
+    .product-final .description {
+        color: #7f8c8d;
+        line-height: 1.7;
+        margin-bottom: 25px;
+    }
+
+    .btn-final {
+        background-color: #3498db;
+        color: white;
+        padding: 12px 28px;
+        border-radius: 6px;
+        text-decoration: none;
+        font-weight: bold;
+        transition: background-color 0.3s, transform 0.2s;
+    }
+
+    .btn-final:hover {
+        background-color: #2980b9;
+        transform: translateY(-2px);
+    }
+
+/* === BENEFICES === */
+    .benefits {
+        text-align: center;
+        margin-bottom: 60px;
+    }
+
+    .benefits h3 {
+        color: #2c3e50;
+        font-size: 26px;
+        margin-bottom: 40px;
+    }
+
+    .benefit-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 30px;
+    }
+
+    .benefit-card {
+        background-color: #f8f9fa;
+        padding: 30px;
+        border-radius: 10px;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        transition: transform 0.3s;
+    }
+
+    .benefit-card:hover {
+        transform: translateY(-5px);
+    }
+
+    .benefit-card i {
+        font-size: 28px;
+        color: #3498db;
+        margin-bottom: 15px;
+    }
+
+    .benefit-card h4 {
+        color: #2c3e50;
+        margin-bottom: 10px;
+    }
+
+    .benefit-card p {
+        color: #7f8c8d;
+    }
+
+/* === CARE === */
+    .care {
+        background-color: #f8f9fa;
+        padding: 40px 20px;
+        border-radius: 8px;
+        text-align: center;
+    }
+
+    .care h3 {
+        color: #2c3e50;
+        margin-bottom: 15px;
+    }
+
+    .care p {
+        color: #7f8c8d;
+        max-width: 600px;
+        margin: 0 auto;
+        line-height: 1.6;
+    }
+
+/* === Responsive === */
+    @media (max-width: 768px) {
+    .product-final {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .product-final .product-details {
+        max-width: 100%;
+    }
+
 }
