@@ -1,0 +1,79 @@
+/* === PAGE CONTACT === */
+
+.contact-section {
+    padding: 60px 0;
+    text-align: center;
+}
+
+.contact-section h1,
+.contact-section h2 {
+    font-size: 32px;
+    color: #2c3e50;
+    margin-bottom: 20px;
+}
+
+.contact-section p {
+    color: #7f8c8d;
+    font-size: 16px;
+    margin-bottom: 30px;
+    line-height: 1.6;
+}
+
+/* === FORMULAIRE DE CONTACT === */
+.contact-section form {
+    max-width: 600px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.contact-section input,
+.contact-section textarea {
+    width: 100%;
+    padding: 12px 15px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 15px;
+    color: #333;
+    transition: border-color 0.3s;
+}
+
+.contact-section input:focus,
+.contact-section textarea:focus {
+    border-color: #3498db;
+    outline: none;
+}
+
+/* === BOUTON D’ENVOI === */
+.contact-section button {
+    background-color: #3498db;
+    color: white;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 6px;
+    font-weight: bold;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.contact-section button:hover {
+    background-color: #2980b9;
+}
+
+/* === Responsive === */
+@media (max-width: 768px) {
+    .contact-section {
+        padding: 40px 0;
+    }
+
+    .contact-section form {
+        width: 90%;
+    }
+
+    .contact-section h1,
+    .contact-section h2 {
+        font-size: 26px;
+    }
+}

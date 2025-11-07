@@ -1,0 +1,216 @@
+/* === PAGE SOMNYL (FINALE) === */
+.somnyl-final {
+    padding: 80px 0;
+}
+
+.product-final {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 60px;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 60px;
+}
+
+.product-final .product-image img {
+    max-width: 380px;
+    border-radius: 10px;
+    box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+}
+
+.product-final .product-details {
+    max-width: 450px;
+}
+
+.product-final .product-details h2 {
+    color: #2c3e50;
+    font-size: 28px;
+    margin-bottom: 10px;
+}
+
+.product-final .price {
+    color: #3498db;
+    font-weight: bold;
+    font-size: 1.5rem;
+    margin-bottom: 15px;
+}
+
+.product-final .subtitle {
+    color: #555;
+    font-style: italic;
+    margin-bottom: 20px;
+}
+
+.product-final .description {
+    color: #7f8c8d;
+    line-height: 1.7;
+    margin-bottom: 25px;
+}
+
+/* === TAILLES DU PRODUIT === */
+.sizes {
+    display: flex;
+    gap: 12px;
+    margin: 20px 0 30px 0;
+    flex-wrap: wrap;
+}
+
+.sizes label {
+    cursor: pointer;
+    background-color: #f0f2f5;
+    border: 1px solid #dcdfe6;
+    border-radius: 30px;
+    padding: 10px 18px;
+    font-weight: 500;
+    color: #2c3e50;
+    transition: all 0.3s ease;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+.sizes label:hover {
+    background-color: #e3f2fd;
+    border-color: #3498db;
+}
+
+.sizes input {
+    display: none;
+}
+
+.sizes input:checked + span {
+    background-color: #3498db;
+    color: #fff;
+    border-radius: 30px;
+    padding: 10px 18px;
+    box-shadow: 0 2px 8px rgba(52, 152, 219, 0.3);
+}
+
+/* === BOUTON PANIER === */
+.btn-final {
+    display: inline-block;
+    background: linear-gradient(90deg, #3498db, #2980b9);
+    color: #fff;
+    padding: 12px 32px;
+    border: none;
+    border-radius: 30px;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 15px;
+    letter-spacing: 0.5px;
+    transition: all 0.3s ease;
+    box-shadow: 0 3px 8px rgba(52, 152, 219, 0.25);
+}
+
+.btn-final:hover {
+    background: linear-gradient(90deg, #2980b9, #1c6ca1);
+    transform: translateY(-2px);
+    box-shadow: 0 5px 12px rgba(52, 152, 219, 0.35);
+}
+
+/* === FAVORIS === */
+.favorite {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: #7f8c8d;
+    font-size: 15px;
+    margin-top: 20px;
+    cursor: pointer;
+    transition: color 0.3s, transform 0.2s;
+}
+
+.favorite i {
+    font-size: 18px;
+    transition: transform 0.3s, color 0.3s;
+}
+
+.favorite:hover {
+    color: #e74c3c;
+    transform: scale(1.03);
+}
+
+.favorite:hover i {
+    color: #e74c3c;
+    transform: scale(1.2);
+}
+
+/* === SECTION BÉNÉFICES === */
+.benefits {
+    text-align: center;
+    margin-bottom: 60px;
+}
+
+.benefits h3 {
+    color: #2c3e50;
+    font-size: 26px;
+    margin-bottom: 40px;
+}
+
+.benefit-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 30px;
+}
+
+.benefit-card {
+    background-color: #f8f9fa;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+    transition: transform 0.3s;
+}
+
+.benefit-card:hover {
+    transform: translateY(-5px);
+}
+
+.benefit-card i {
+    font-size: 28px;
+    color: #3498db;
+    margin-bottom: 15px;
+}
+
+.benefit-card h4 {
+    color: #2c3e50;
+    margin-bottom: 10px;
+}
+
+.benefit-card p {
+    color: #7f8c8d;
+}
+
+/* === SECTION CONSEILS D’UTILISATION === */
+.care {
+    background-color: #f8f9fa;
+    padding: 40px 20px;
+    border-radius: 8px;
+    text-align: center;
+}
+
+.care h3 {
+    color: #2c3e50;
+    margin-bottom: 15px;
+}
+
+.care p {
+    color: #7f8c8d;
+    max-width: 600px;
+    margin: 0 auto;
+    line-height: 1.6;
+}
+
+/* === Responsive === */
+@media (max-width: 768px) {
+    .product-final {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .product-final .product-details {
+        max-width: 100%;
+    }
+
+    .btn-final {
+        width: auto;
+        padding: 12px 30px;
+    }
+}
