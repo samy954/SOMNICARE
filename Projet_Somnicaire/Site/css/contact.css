@@ -61,6 +61,23 @@
 .contact-section button:hover {
     background-color: #2980b9;
 }
+.alert {
+    padding: 15px;
+    border-radius: 6px;
+    margin-bottom: 20px;
+    text-align: center;
+    font-weight: 600;
+}
+
+.alert.success {
+    background-color: #d4edda;
+    color: #155724;
+}
+
+.alert.error {  
+    background-color: #f8d7da;
+    color: #721c24;
+}
 
 /* === Responsive === */
 @media (max-width: 768px) {
