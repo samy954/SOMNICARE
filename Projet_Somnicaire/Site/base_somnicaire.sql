@@ -72,6 +72,15 @@ CREATE TABLE avis (
     FOREIGN KEY (id_utilisateur) REFERENCES utilisateurs(id_utilisateur)
 );
 
+CREATE TABLE messages (
+    id_message INT AUTO_INCREMENT PRIMARY KEY,
+    nom VARCHAR(100) NOT NULL,
+    email VARCHAR(100) NOT NULL,
+    telephone VARCHAR(20),
+    contenu TEXT NOT NULL,
+    date_envoi DATETIME DEFAULT CURRENT_TIMESTAMP
+);
+
 CREATE TABLE conseils_sommeil (
     id_conseil INT AUTO_INCREMENT PRIMARY KEY,
     titre VARCHAR(255) NOT NULL,
