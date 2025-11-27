@@ -1,0 +1,57 @@
+:root{
+  --bg:#ffffff;
+  --muted:#f7f3f6;
+  --pink:#f0d7de;
+  --accent:#5b5160;
+  --card-border:#e9e4e8;
+  --text:#222;
+}
+*{box-sizing:border-box}
+html,body{height:100%;margin:0;font-family:Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial; background:var(--bg); color:var(--text)}
+
+.site-header{padding:18px 40px}
+.nav .back{text-decoration:none;color:var(--text);font-size:22px}
+
+.page{display:flex;gap:40px;padding:24px 60px;align-items:flex-start}
+.cart-area{flex:1;max-width:900px}
+.summary{width:320px}
+
+h2{font-size:20px;margin:8px 0}
+.subtext{color:#6b6b6b;margin:6px 0 20px}
+
+.product-card{display:flex;align-items:center;gap:18px;border:1px solid var(--card-border);padding:14px;border-radius:12px}
+.product-thumb{width:76px;height:76px;object-fit:cover;border-radius:8px}
+.product-info{flex:1}
+.product-title{font-weight:600}
+.product-format{color:#8a8a8a;font-size:13px;margin-top:6px}
+.product-controls{display:flex;align-items:center;gap:12px}
+.qty{display:flex;align-items:center;border:1px solid var(--card-border);border-radius:6px;padding:4px}
+.qty-btn{background:none;border:0;padding:6px;font-size:16px;cursor:pointer}
+.qty-value{width:26px;text-align:center}
+.price{min-width:70px;text-align:right}
+.trash{background:none;border:0;cursor:pointer;font-size:18px}
+
+.divider{margin:28px 0;border:none;border-top:1px solid #eee}
+
+.fav-title{font-size:16px;margin-bottom:12px}
+.favs{display:flex}
+.fav-card{width:120px;border:1px solid var(--card-border);border-radius:12px;padding:12px;text-align:center}
+.fav-thumb{width:96px;height:96px;object-fit:cover;border-radius:8px}
+.fav-name{font-size:13px;margin-top:8px}
+.fav-price{color:#6b6b6b;font-size:13px}
+
+.summary-box{background:var(--pink);padding:22px;border-radius:14px;box-shadow:0 6px 0 rgba(0,0,0,0.02)}
+.summary-row{display:flex;justify-content:space-between;margin-bottom:8px;font-size:14px}
+.summary-row.total{font-weight:700;margin-top:8px}
+
+.pay-btn{display:flex;justify-content:space-between;align-items:center;padding:12px 14px;border-radius:10px;border:0;margin-top:14px;background:var(--accent);color:#fff;width:100%;cursor:pointer}
+.pay-amount{background:rgba(255,255,255,0.06);padding:8px 12px;border-radius:8px}
+.pay-text{opacity:0.95}
+
+.site-footer{padding:26px 60px;color:#9b9b9b}
+
+/* Responsive */
+@media(max-width:900px){
+  .page{flex-direction:column;padding:16px}
+  .summary{width:100%}
+}
