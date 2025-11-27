@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Panier - Somneil</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="somnyl.css" />
+  <link rel="stylesheet" href="panier.css" type="text/css" media="screen" />
+</head>
+<body>
+  <header class="header">
+    <img src="Images/logo.png" class="logo" alt="SomniCare" />
+    <nav class="menu">
+      <a href="index.html">Accueil</a>
+      <a href="troubles-sommeil.html">Les troubles du sommeil</a>
+      <a href="somnyl.html">Somnyl</a>
+      <a href="methode.html">Méthode</a>
+      <a href="contact.php">Contact</a>
+      <a href="#">Réserver</a>
+	</nav>
+    <button class="login">S’identifier</button>
+    
+  </header>
+  <header class="site-header">
+    <nav class="nav">
+      <a href="index.html" class="back">←</a>
+    </nav>
+  </header>
+
+  <main class="page">
+    <section class="cart-area">
+      <h2>Panier</h2>
+      <p class="subtext">Vous avez 1 produit dans votre panier</p>
+
+      <div class="product-card">
+        <img src="Images/somnyl.png" alt="Somnyl" class="product-thumb">
+        <div class="product-info">
+          <div class="product-title">Somnyl</div>
+          <div class="product-format">Format 60</div>
+        </div>
+        <div class="product-controls">
+          <div class="qty">
+            <button class="qty-btn">−</button>
+            <span class="qty-value">1</span>
+            <button class="qty-btn">+</button>
+          </div>
+          <div class="price">29.99€</div>
+          <button class="trash" aria-label="Retirer">🗑️</button>
+        </div>
+      </div>
+
+      <hr class="divider">
+
+      <h3 class="fav-title">Ajoutez vos produits favoris</h3>
+      <div class="favs">
+        <div class="fav-card">
+          <img src="Images/somnyl.png" alt="Gellules Somnyl" class="fav-thumb">
+          <div class="fav-name">Gellules Somnyl</div>
+          <div class="fav-price">29.99€</div>
+        </div>
+      </div>
+    </section>
+
+    <aside class="summary">
+      <div class="summary-box">
+        <div class="summary-row"><span>Sous-total</span><span>29.99€</span></div>
+        <div class="summary-row"><span>Livraison</span><span>4€</span></div>
+        <div class="summary-row total"><span>Total (Tax incl.)</span><span>33.99€</span></div>
+
+        <button class="pay-btn">
+          <span class="pay-amount">33.99€</span>
+          <span class="pay-text">Payer →</span>
+        </button>
+      </div>
+    </aside>
+  </main>
+
+  <footer class="site-footer">
+    <p>&copy; 2025 Somneil</p>
+  </footer>
+</body>
+</html>
