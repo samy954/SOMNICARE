@@ -1,9 +1,25 @@
 <?php
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
+
+
+$servername = "localhost";
+$username = "root";      
+$password = "root";         
+$dbname = "somnicare"; 
+
+$conn = new mysqli($servername, $username, $password, $dbname);
+
+// Vérifie la connexion
+if ($conn->connect_error) {
+    die("Erreur de connexion à la base de données : " . $conn->connect_error);
+}
+
 // Initialisation des messages
 $success = "";
 $error = "";
 
-// Simulation de l'envoi d'email
+// Traitement du formulaire
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $nom = trim($_POST["nom"]);
     $email = trim($_POST["email"]);
@@ -16,10 +32,20 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     } elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
         $error = "Veuillez entrer une adresse email valide.";
     } else {
-        // Simulation de l'envoi du mail (fictif)
-        $success = "✅ Votre message a été envoyé avec succès (simulation locale).";
+        $stmt = $conn->prepare("INSERT INTO messages (nom, email, telephone, contenu) VALUES (?, ?, ?, ?)");
+        $stmt->bind_param("ssss", $nom, $email, $telephone, $message);
+
+        if ($stmt->execute()) {
+            $success = "✅ Votre message a été enregistré avec succès !";
+        } else {
+            $error = "❌ Une erreur est survenue lors de l’enregistrement.";
+        }
+
+        $stmt->close();
     }
 }
+
+$conn->close();
 ?>
 
 <!DOCTYPE html>
@@ -85,7 +111,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
             <div class="contact-info">
                 <h2>Notre équipe</h2>
-                <p>Nos spécialistes SomniCare vous répondent sous 24h (simulation locale).</p>
+                <p>Nos spécialistes SomniCare vous répondent sous 24h.</p>
             </div>
         </div>
     </section>
