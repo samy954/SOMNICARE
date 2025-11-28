@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <title>SomniCare – Motif de consultation</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <!-- Police -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --bg-page: #f6f7fb;
+      --bg-header: #ffffff;
+      --bg-card: #ffffff;
+      --bg-pill: #ffe7ee;
+      --bg-pill-apnee: #ffe9ec;
+      --bg-pill-sommeil: #ffeef4;
+      --bg-pill-parasomnie: #ffe3f3;
+      --text-main: #1f2430;
+      --text-muted: #6f7280;
+      --text-soft: #8d8fa0;
+      --primary: #4b4768;
+      --primary-hover: #3b3758;
+      --border-soft: #e1e4f0;
+      --step-active: #4b4768;
+      --step-inactive: #c8cad8;
+      --shadow-soft: 0 12px 40px rgba(15, 23, 42, 0.08);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: var(--bg-page);
+      color: var(--text-main);
+    }
+
+    a { text-decoration: none; color: inherit; }
+
+    .page {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* ===== HEADER ===== */
+
+    .header {
+      background: var(--bg-header);
+      border-bottom: 1px solid #edf0f7;
+      padding: 14px 40px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+
+    .header-left {
+      display: flex;
+      align-items: center;
+      gap: 28px;
+    }
+
+    .logo {
+      display: inline-flex;
+      align-items: center;
+    }
+
+    .logo-img {
+      height: 60px;
+      width: auto;
+      display: block;
+    }
+
+    .nav {
+      display: flex;
+      gap: 22px;
+      font-size: 14px;
+      color: var(--text-soft);
+    }
+
+    .nav a {
+      position: relative;
+      padding-bottom: 4px;
+    }
+
+    .nav a:hover { color: var(--text-main); }
+
+    .nav a.nav-active {
+      color: var(--text-main);
+      font-weight: 500;
+    }
+
+    .nav a.nav-active::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: -6px;
+      width: 24px;
+      height: 2px;
+      border-radius: 999px;
+      background: #f79eb7;
+    }
+
+    .header-right {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      font-size: 14px;
+    }
+
+    .lang-switcher {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 10px;
+      border-radius: 999px;
+      background: #f3f4fa;
+      color: var(--text-soft);
+      cursor: default;
+    }
+
+    .lang-switcher span.icon { font-size: 14px; }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 10px 18px;
+      border-radius: 999px;
+      border: none;
+      cursor: pointer;
+      font-size: 14px;
+      font-weight: 500;
+      white-space: nowrap;
+    }
+
+    .btn-primary {
+      background: var(--primary);
+      color: #ffffff;
+      box-shadow: 0 6px 18px rgba(76, 72, 110, 0.28);
+    }
+
+    .btn-primary:hover { background: var(--primary-hover); }
+
+    /* ===== MAIN ===== */
+
+    .main {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      padding: 40px 16px 32px;
+    }
+
+    .card-wrapper {
+      width: 100%;
+      max-width: 960px;
+    }
+
+    .stepper {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 32px;
+      gap: 36px;
+      font-size: 12px;
+      color: var(--text-soft);
+    }
+
+    .step {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .step-circle {
+      width: 26px;
+      height: 26px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 13px;
+      font-weight: 500;
+      background: #edefff;
+      color: var(--step-inactive);
+    }
+
+    .step-label {
+      letter-spacing: 0.03em;
+      text-transform: uppercase;
+    }
+
+    .step--active .step-circle {
+      background: var(--primary);
+      color: #ffffff;
+    }
+
+    .step--active .step-label {
+      color: var(--text-main);
+      font-weight: 600;
+    }
+
+    .consult-card {
+      background: var(--bg-card);
+      border-radius: 26px;
+      box-shadow: var(--shadow-soft);
+      padding: 28px 32px 22px;
+    }
+
+    .consult-title {
+      text-align: center;
+      font-size: 20px;
+      font-weight: 600;
+      margin-bottom: 26px;
+    }
+
+    .consult-list {
+      border-radius: 20px;
+      overflow: hidden;
+      border: 1px solid var(--border-soft);
+      background: #fdfdff;
+    }
+
+    .consult-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 18px 22px;
+      background: #ffffff;
+    }
+
+    .consult-item + .consult-item {
+      border-top: 1px solid var(--border-soft);
+    }
+
+    .consult-left {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+    }
+
+    .pill {
+      min-width: 90px;
+      text-align: center;
+      padding: 6px 14px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 0.03em;
+      text-transform: capitalize;
+      color: #c5395e;
+    }
+
+    .pill--insomnie    { background: #ffe7ee; }
+    .pill--apnee       { background: #ffe9ec; }
+    .pill--sommeil     { background: #ffeef4; }
+    .pill--parasomnie  { background: #ffe3f3; }
+
+    .consult-text-main {
+      font-size: 15px;
+      font-weight: 600;
+      margin-bottom: 2px;
+    }
+
+    .consult-text-sub {
+      font-size: 13px;
+      color: var(--text-muted);
+    }
+
+    .btn-choose {
+      padding: 9px 20px;
+      border-radius: 999px;
+      border: none;
+      background: var(--primary);
+      color: #ffffff;
+      font-size: 14px;
+      font-weight: 500;
+      cursor: pointer;
+      box-shadow: 0 4px 12px rgba(76, 72, 110, 0.25);
+    }
+
+    .btn-choose:hover { background: var(--primary-hover); }
+
+    .consult-footer {
+      margin-top: 20px;
+      display: flex;
+      justify-content: center;
+    }
+
+    .btn-secondary {
+      background: transparent;
+      color: var(--text-soft);
+      border: 1px solid #d4d7e5;
+      padding: 9px 22px;
+      border-radius: 999px;
+      font-size: 14px;
+      font-weight: 500;
+      cursor: pointer;
+    }
+
+    .btn-secondary:hover {
+      background: #f3f4fb;
+      color: var(--text-main);
+    }
+
+    /* ===== FOOTER ===== */
+
+    .footer {
+      font-size: 11px;
+      text-align: center;
+      color: var(--text-soft);
+      padding: 18px 16px 24px;
+    }
+
+    .footer span { color: #a0a3b5; }
+
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 768px) {
+      .header { padding: 12px 16px; }
+      .nav { display: none; }
+      .main { padding: 20px 10px 20px; }
+      .consult-card { padding: 20px 18px 18px; border-radius: 18px; }
+      .consult-list { border-radius: 14px; }
+      .consult-item { flex-direction: column; align-items: flex-start; }
+      .consult-footer { margin-top: 16px; }
+    }
+  </style>
+</head>
+<body>
+<div class="page">
+  <!-- HEADER -->
+  <header class="header">
+    <div class="header-left">
+      <a href="#" class="logo">
+        <img src="logo.png" alt="SomniCare" class="logo-img">
+      </a>
+      <nav class="nav">
+        <a href="#" class="nav-active">Accueil</a>
+        <a href="#">Les troubles du sommeil</a>
+        <a href="#">Somnyl</a>
+        <a href="#">Méthode</a>
+        <a href="#">Contact</a>
+        <a href="#">Réserver</a>
+      </nav>
+    </div>
+    <div class="header-right">
+      <div class="lang-switcher">
+        <span class="icon">🌐</span>
+        <span>FR</span>
+      </div>
+      <button class="btn btn-primary">Mon espace</button>
+    </div>
+  </header>
+
+  <!-- MAIN -->
+  <main class="main">
+    <div class="card-wrapper">
+
+      <!-- Stepper (étape 1 active) -->
+      <div class="stepper">
+        <div class="step step--active">
+          <div class="step-circle">1</div>
+          <div class="step-label">Motif</div>
+        </div>
+        <div class="step">
+          <div class="step-circle">2</div>
+          <div class="step-label">Praticien</div>
+        </div>
+        <div class="step">
+          <div class="step-circle">3</div>
+          <div class="step-label">Date &amp; heure</div>
+        </div>
+        <div class="step">
+          <div class="step-circle">4</div>
+          <div class="step-label">Coordonnées</div>
+        </div>
+        <div class="step">
+          <div class="step-circle">5</div>
+          <div class="step-label">Résumé</div>
+        </div>
+        <div class="step">
+          <div class="step-circle">6</div>
+          <div class="step-label">Confirmation</div>
+        </div>
+      </div>
+
+      <!-- Card MOTIF -->
+      <section class="consult-card">
+        <h1 class="consult-title">Choisissez votre motif de consultation</h1>
+
+        <div class="consult-list">
+          <div class="consult-item">
+            <div class="consult-left">
+              <div class="pill pill--insomnie">Insomnie</div>
+              <div>
+                <div class="consult-text-main">Suivi TCC-I</div>
+                <div class="consult-text-sub">
+                  Séance de thérapie cognitivo-comportementale (30–45 min)
+                </div>
+              </div>
+            </div>
+            <a href="praticien.html" class="btn-choose">Choisir</a>
+          </div>
+
+          <div class="consult-item">
+            <div class="consult-left">
+              <div class="pill pill--apnee">Apnée</div>
+              <div>
+                <div class="consult-text-main">Dépistage apnée du sommeil</div>
+                <div class="consult-text-sub">
+                  Orientation + prescription d’examens si besoin
+                </div>
+              </div>
+            </div>
+            <a href="praticien.html" class="btn-choose">Choisir</a>
+          </div>
+
+          <div class="consult-item">
+            <div class="consult-left">
+              <div class="pill pill--sommeil">Sommeil</div>
+              <div>
+                <div class="consult-text-main">Première évaluation</div>
+                <div class="consult-text-sub">
+                  Bilan initial avec un spécialiste (45–60 min)
+                </div>
+              </div>
+            </div>
+            <a href="praticien.html" class="btn-choose">Choisir</a>
+          </div>
+
+          <div class="consult-item">
+            <div class="consult-left">
+              <div class="pill pill--parasomnie">Parasomnie</div>
+              <div>
+                <div class="consult-text-main">Parasomnie</div>
+                <div class="consult-text-sub">
+                  Étude des comportements nocturnes
+                </div>
+              </div>
+            </div>
+            <a href="praticien.html" class="btn-choose">Choisir</a>
+          </div>
+        </div>
+
+        <div class="consult-footer">
+          <button class="btn-secondary">Annuler</button>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    © 2025 SomniCare — <span>Troubles du sommeil · Tous droits réservés</span>
+  </footer>
+</div>
+</body>
+</html>
