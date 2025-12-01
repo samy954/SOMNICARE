@@ -11,7 +11,7 @@
         <nav>
             <a href="index.html"><img src="assets/images/logo.png" alt="Somneil Logo" class="logo"></a>
             <ul>
-                <li><a href="index.html">Accueil</a></li>
+                <li><a href="index.php">Accueil</a></li>
                 <li><a href="troubles.html">Les troubles du sommeil</a></li>
                 <li><a href="somnyl.html">Somnyl</a></li>
                 <li><a href="methode.html">Méthode</a></li>

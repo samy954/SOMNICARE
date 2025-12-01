@@ -1,3 +1,6 @@
+<?php
+session_start(); // ✅ Nécessaire pour afficher le prénom si connecté
+?>
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -23,10 +26,10 @@
                 <!-- Navigation centrale -->
                 <nav class="main-nav">
                     <ul class="nav-links">
-                        <li><a href="index.html">Accueil</a></li>
-                        <li><a href="troubles-sommeil.html">Les troubles du sommeil</a></li>
-                        <li><a href="somnyl.html">Somnyl</a></li>
-                        <li><a href="methode.html" class="active">Méthode</a></li>
+                        <li><a href="index.php">Accueil</a></li>
+                        <li><a href="troubles-sommeil.php">Les troubles du sommeil</a></li>
+                        <li><a href="somnyl.php">Somnyl</a></li>
+                        <li><a href="methode.php" class="active">Méthode</a></li>
                         <li><a href="contact.php">Contact</a></li>
                     </ul>
                 </nav>
@@ -39,14 +42,18 @@
                         <span class="language-text">FR</span>
                     </div>
 
-                    <!-- Bouton s'identifier -->
-                    <a href="inscription.php" class="btn-identifier">S'identifier</a>
+                    <!-- ✅ Bouton dynamique -->
+                    <?php if (isset($_SESSION["prenom"])): ?>
+                        <a href="espace.php" class="btn-identifier">
+                            Mon espace (<?php echo htmlspecialchars($_SESSION["prenom"]); ?>)
+                        </a>
+                    <?php else: ?>
+                        <a href="connexion.php" class="btn-identifier">S'identifier</a>
+                    <?php endif; ?>
                 </div>
             </div>
         </div>
     </header>
-
-
 
     <!-- Section titre -->
     <section class="page-header">
@@ -69,7 +76,7 @@
                 <div class="stat-simple">
                     <div class="stat-number-simple">3000+</div>
                     <div class="stat-title-simple">Patients satisfaits</div>
-                    <div class="stat-desc-simple">Amélioration significative de la qualité de vie. Avis et retours de patients constantes sur notre site.</div>
+                    <div class="stat-desc-simple">Amélioration significative de la qualité de vie. Avis et retours de patients constants sur notre site.</div>
                 </div>
                 
                 <div class="stat-simple">
@@ -93,7 +100,7 @@
         </div>
     </section>
 
-    <!-- SECTION 2: TCC-I (parties roses/blanches de votre maquette) -->
+    <!-- SECTION 2: TCC-I -->
     <section class="tcci-section">
         <div class="container">
             <div class="tcci-grid">
@@ -109,7 +116,7 @@
                     <p>La TCC-I convient aux personnes souffrant d'insomnie chronique, y compris celles souffrant d'insomnie primaire et d'insomnie liée à d'autres conditions telles que la dépression ou l'anxiété. Elle est idéale pour les personnes qui préfèrent les traitements non pharmacologiques ou qui n'ont pas trouvé de soulagement avec les somnifères.</p>
                 </div>
                 
-                <!-- Carte 3 (pleine largeur) -->
+                <!-- Carte 3 -->
                 <div class="tcci-card full-width">
                     <h3>Comment fonctionne la TCC-I ?</h3>
                     <p>La TCC-I implique une combinaison de stratégies conçues pour traiter à la fois sur le corps et l'esprit, favorisant un meilleur sommeil. En voici les principaux éléments :</p>

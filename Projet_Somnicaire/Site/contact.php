@@ -1,12 +1,14 @@
 <?php
+session_start(); // ✅ permet d'afficher le prénom dans la navbar
+
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
-
+// === Connexion à la base de données ===
 $servername = "localhost";
-$username = "root";      
-$password = "root";         
-$dbname = "somnicare"; 
+$username = "root";
+$password = "root"; // ou "" selon ton MAMP
+$dbname = "somnicare";
 
 $conn = new mysqli($servername, $username, $password, $dbname);
 
@@ -56,78 +58,93 @@ $conn->close();
     <title>Contact - SomniCare</title>
     <link rel="stylesheet" href="css/base.css">
     <link rel="stylesheet" href="css/contact.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
-    <header>
-        <div class="container">
-            <div class="header-content">
-                <div class="logo">
-                    <div class="logo-image">
-                        <img src="images/logo.png" alt="SomniCare">
-                    </div>
-                </div>
-                <nav class="main-nav">
-                    <ul class="nav-links">
-                        <li><a href="index.html">Accueil</a></li>
-                        <li><a href="troubles-sommeil.html">Les troubles du sommeil</a></li>
-                        <li><a href="somnyl.html">Somnyl</a></li>
-                        <li><a href="methode.html">Méthode</a></li>
-                        <li><a href="contact.php" class="active">Contact</a></li>
-                    </ul>
-                </nav>
-                <div class="header-right">
-                    <div class="language-selector">
-                        <i class="fas fa-globe language-icon"></i>
-                        <span class="language-text">FR</span>
-                    </div>
-                    <a href="login.html" class="btn-identifier">S'identifier</a>
+<header>
+    <div class="container">
+        <div class="header-content">
+
+            <!-- Logo -->
+            <div class="logo">
+                <div class="logo-image">
+                    <img src="images/logo.png" alt="SomniCare">
                 </div>
             </div>
-        </div>
-    </header>
 
-    <section class="page-header">
-        <div class="container">
-            <h1>Contactez-nous</h1>
-            <p>Une question ? Notre équipe est là pour vous aider.</p>
-        </div>
-    </section>
+            <!-- Navigation -->
+            <nav class="main-nav">
+                <ul class="nav-links">
+                    <li><a href="index.php">Accueil</a></li>
+                    <li><a href="troubles-sommeil.php">Les troubles du sommeil</a></li>
+                    <li><a href="somnyl.php">Somnyl</a></li>
+                    <li><a href="methode.php">Méthode</a></li>
+                    <li><a href="contact.php" class="active">Contact</a></li>
+                </ul>
+            </nav>
 
-    <section class="contact-section">
-        <div class="container">
-            <?php if ($success): ?>
-                <div class="alert success"><?php echo $success; ?></div>
-            <?php elseif ($error): ?>
-                <div class="alert error"><?php echo $error; ?></div>
-            <?php endif; ?>
-
-            <form method="POST" action="">
-                <input type="text" name="nom" placeholder="Votre nom *" required>
-                <input type="email" name="email" placeholder="Votre email *" required>
-                <input type="text" name="telephone" placeholder="Votre téléphone">
-                <textarea name="message" rows="5" placeholder="Votre message *" required></textarea>
-                <button type="submit">Envoyer</button>
-            </form>
-
-            <div class="contact-info">
-                <h2>Notre équipe</h2>
-                <p>Nos spécialistes SomniCare vous répondent sous 24h.</p>
-            </div>
-        </div>
-    </section>
-
-    <footer>
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-logo">SomniCare</div>
-                <div class="footer-description">
-                    Spécialistes du sommeil — réservations avec des médecins spécialisés et solutions naturelles validées par nos experts.
+            <!-- Côté droit -->
+            <div class="header-right">
+                <div class="language-selector">
+                    <i class="fas fa-globe language-icon"></i>
+                    <span class="language-text">FR</span>
                 </div>
-            </div>
-            <div class="footer-copyright">
-                © 2025 SomniCare — Tous droits réservés
+
+                <!-- ✅ Bouton dynamique -->
+                <?php if (isset($_SESSION["prenom"])): ?>
+                    <a href="espace.php" class="btn-identifier">
+                        Mon espace (<?php echo htmlspecialchars($_SESSION["prenom"]); ?>)
+                    </a>
+                <?php else: ?>
+                    <a href="connexion.php" class="btn-identifier">S'identifier</a>
+                <?php endif; ?>
             </div>
         </div>
-    </footer>
+    </div>
+</header>
+
+<section class="page-header">
+    <div class="container">
+        <h1>Contactez-nous</h1>
+        <p>Une question ? Notre équipe est là pour vous aider.</p>
+    </div>
+</section>
+
+<section class="contact-section">
+    <div class="container">
+        <?php if ($success): ?>
+            <div class="alert success"><?php echo $success; ?></div>
+        <?php elseif ($error): ?>
+            <div class="alert error"><?php echo $error; ?></div>
+        <?php endif; ?>
+
+        <form method="POST" action="">
+            <input type="text" name="nom" placeholder="Votre nom *" required>
+            <input type="email" name="email" placeholder="Votre email *" required>
+            <input type="text" name="telephone" placeholder="Votre téléphone">
+            <textarea name="message" rows="5" placeholder="Votre message *" required></textarea>
+            <button type="submit">Envoyer</button>
+        </form>
+
+        <div class="contact-info">
+            <h2>Notre équipe</h2>
+            <p>Nos spécialistes SomniCare vous répondent sous 24h.</p>
+        </div>
+    </div>
+</section>
+
+<footer>
+    <div class="container">
+        <div class="footer-content">
+            <div class="footer-logo">SomniCare</div>
+            <div class="footer-description">
+                Spécialistes du sommeil — réservations avec des médecins spécialisés et solutions naturelles validées par nos experts.
+            </div>
+        </div>
+        <div class="footer-copyright">
+            © 2025 SomniCare — Tous droits réservés
+        </div>
+    </div>
+</footer>
 </body>
 </html>

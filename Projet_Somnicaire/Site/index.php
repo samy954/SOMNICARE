@@ -1,3 +1,4 @@
+<?php session_start(); ?>
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -13,20 +14,21 @@
     <header>
         <div class="container">
             <div class="header-content">
-<!-- Logo à gauche -->
-<div class="logo">
-    <div class="logo-image">
-        <img src="images/logo.png" alt="SomniCare">
-    </div>
-</div>
+
+                <!-- Logo à gauche -->
+                <div class="logo">
+                    <div class="logo-image">
+                        <img src="images/logo.png" alt="SomniCare">
+                    </div>
+                </div>
 
                 <!-- Navigation centrale -->
                 <nav class="main-nav">
                     <ul class="nav-links">
-                        <li><a href="index.html" class="active">Accueil</a></li>
-                        <li><a href="troubles-sommeil.html">Les troubles du sommeil</a></li>
-                        <li><a href="somnyl.html">Somnyl</a></li>
-                        <li><a href="methode.html">Méthode</a></li>
+                        <li><a href="index.php" class="active">Accueil</a></li>
+                        <li><a href="troubles-sommeil.php">Les troubles du sommeil</a></li>
+                        <li><a href="somnyl.php">Somnyl</a></li>
+                        <li><a href="methode.php">Méthode</a></li>
                         <li><a href="contact.php">Contact</a></li>
                     </ul>
                 </nav>
@@ -39,8 +41,14 @@
                         <span class="language-text">FR</span>
                     </div>
 
-                    <!-- Bouton s'identifier -->
-                    <a href="inscription.php" class="btn-identifier">S'identifier</a>
+                    <!-- Bouton dynamique -->
+                    <?php if (isset($_SESSION["prenom"])): ?>
+                        <a href="espace.php" class="btn-identifier">
+                            Mon espace (<?php echo htmlspecialchars($_SESSION["prenom"]); ?>)
+                        </a>
+                    <?php else: ?>
+                        <a href="connexion.php" class="btn-identifier">S'identifier</a>
+                    <?php endif; ?>
                 </div>
             </div>
         </div>
@@ -50,7 +58,7 @@
         <div class="container">
             <h1>SomniCare</h1>
             <p><strong>Votre sommeil, notre priorité</strong></p>
-            <p class="tagline">Des spécialistes des solutions et les agences scientifiques pour mieux dormir. Réservez un type avec un médecin du sommeil.</p>
+            <p class="tagline">Des spécialistes, des solutions et des analyses scientifiques pour mieux dormir. Réservez un rendez-vous avec un médecin du sommeil.</p>
         </div>
     </section>
     
@@ -116,8 +124,7 @@
                 
                 <div class="testimonial-card">
                     <div class="testimonial-header">
-                        <div class="testimonial-avatar">
-                        </div>
+                        <div class="testimonial-avatar"></div>
                         <div>
                             <div class="testimonial-name">Marc</div>
                             <div class="testimonial-title">18 ans</div>
@@ -151,7 +158,7 @@
                 </div>
             </div>
             <div class="footer-copyright">
-                © 2025 SomniCare — tous droits réservés.
+                © 2025 SomniCare — Tous droits réservés.
             </div>
         </div>
     </footer>

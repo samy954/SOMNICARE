@@ -1,3 +1,6 @@
+<?php
+session_start(); // ✅ Nécessaire pour la navbar dynamique
+?>
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -23,10 +26,10 @@
                 <!-- Navigation centrale -->
                 <nav class="main-nav">
                     <ul class="nav-links">
-                        <li><a href="index.html">Accueil</a></li>
-                        <li><a href="troubles-sommeil.html" class="active">Les troubles du sommeil</a></li>
-                        <li><a href="somnyl.html">Somnyl</a></li>
-                        <li><a href="methode.html">Méthode</a></li>
+                        <li><a href="index.php">Accueil</a></li>
+                        <li><a href="troubles-sommeil.php" class="active">Les troubles du sommeil</a></li>
+                        <li><a href="somnyl.php">Somnyl</a></li>
+                        <li><a href="methode.php">Méthode</a></li>
                         <li><a href="contact.php">Contact</a></li>
                     </ul>
                 </nav>
@@ -39,8 +42,14 @@
                         <span class="language-text">FR</span>
                     </div>
 
-                    <!-- Bouton s'identifier -->
-                    <a href="inscription.php" class="btn-identifier">S'identifier</a>
+                    <!-- ✅ Bouton dynamique -->
+                    <?php if (isset($_SESSION["prenom"])): ?>
+                        <a href="espace.php" class="btn-identifier">
+                            Mon espace (<?php echo htmlspecialchars($_SESSION["prenom"]); ?>)
+                        </a>
+                    <?php else: ?>
+                        <a href="connexion.php" class="btn-identifier">S'identifier</a>
+                    <?php endif; ?>
                 </div>
             </div>
         </div>
