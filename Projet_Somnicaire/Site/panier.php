@@ -1,5 +1,5 @@
 <?php
-session_start(); // ✅ permet d'afficher le prénom connecté dans la navbar
+session_start(); 
 ?>
 <!DOCTYPE html>
 <html lang="fr">

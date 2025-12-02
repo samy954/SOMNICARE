@@ -2,7 +2,7 @@
 // === Connexion à la base de données ===
 $servername = "localhost";
 $username = "root";
-$password = "root"; // ou "" selon ton MAMP
+$password = "root";
 $dbname = "somnicare";
 
 $conn = new mysqli($servername, $username, $password, $dbname);

@@ -1,5 +1,5 @@
 <?php
-session_start(); // ✅ permet d'afficher le prénom dans la navbar
+session_start(); 
 
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
@@ -7,7 +7,7 @@ ini_set('display_errors', 1);
 // === Connexion à la base de données ===
 $servername = "localhost";
 $username = "root";
-$password = "root"; // ou "" selon ton MAMP
+$password = "root"; 
 $dbname = "somnicare";
 
 $conn = new mysqli($servername, $username, $password, $dbname);
@@ -90,7 +90,6 @@ $conn->close();
                     <span class="language-text">FR</span>
                 </div>
 
-                <!-- ✅ Bouton dynamique -->
                 <?php if (isset($_SESSION["prenom"])): ?>
                     <a href="espace.php" class="btn-identifier">
                         Mon espace (<?php echo htmlspecialchars($_SESSION["prenom"]); ?>)

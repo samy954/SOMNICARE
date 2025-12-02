@@ -1,5 +1,5 @@
 <?php
-session_start(); // ✅ Nécessaire pour la navbar dynamique
+session_start(); 
 ?>
 <!DOCTYPE html>
 <html lang="fr">

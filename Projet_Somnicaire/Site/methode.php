@@ -1,5 +1,5 @@
 <?php
-session_start(); // ✅ Nécessaire pour afficher le prénom si connecté
+session_start(); 
 ?>
 <!DOCTYPE html>
 <html lang="fr">
@@ -42,7 +42,6 @@ session_start(); // ✅ Nécessaire pour afficher le prénom si connecté
                         <span class="language-text">FR</span>
                     </div>
 
-                    <!-- ✅ Bouton dynamique -->
                     <?php if (isset($_SESSION["prenom"])): ?>
                         <a href="espace.php" class="btn-identifier">
                             Mon espace (<?php echo htmlspecialchars($_SESSION["prenom"]); ?>)
