@@ -143,7 +143,7 @@
             <p>Un premier échange pour comprendre vos besoins.</p>
             
             <div class="cta-buttons">
-                <a href="reserver.html" class="btn btn-primary">Réserver</a>
+                <a href="reserver/etape1_motif.php" class="btn btn-primary">Réserver</a>
                 <a href="methode.html" class="btn btn-secondary">En savoir plus</a>
             </div>
         </div>

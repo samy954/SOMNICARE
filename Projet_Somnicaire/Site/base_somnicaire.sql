@@ -72,14 +72,14 @@ CREATE TABLE avis (
     FOREIGN KEY (id_utilisateur) REFERENCES utilisateurs(id_utilisateur)
 );
 
-    CREATE TABLE messages (
-        id_message INT AUTO_INCREMENT PRIMARY KEY,
-        nom VARCHAR(100) NOT NULL,
-        email VARCHAR(100) NOT NULL,
-        telephone VARCHAR(20),
-        contenu TEXT NOT NULL,
-        date_envoi DATETIME DEFAULT CURRENT_TIMESTAMP
-    );
+CREATE TABLE messages (
+    id_message INT AUTO_INCREMENT PRIMARY KEY,
+    nom VARCHAR(100) NOT NULL,
+    email VARCHAR(100) NOT NULL,
+    telephone VARCHAR(20),
+    contenu TEXT NOT NULL,
+    date_envoi DATETIME DEFAULT CURRENT_TIMESTAMP
+);
 
 CREATE TABLE conseils_sommeil (
     id_conseil INT AUTO_INCREMENT PRIMARY KEY,
@@ -90,3 +90,7 @@ CREATE TABLE conseils_sommeil (
     categorie VARCHAR(100),
     FOREIGN KEY (auteur) REFERENCES utilisateurs(id_utilisateur)
 );
+
+ALTER TABLE specialistes 
+ADD COLUMN latitude DECIMAL(10,6) AFTER disponibilite,
+ADD COLUMN longitude DECIMAL(10,6) AFTER latitude;

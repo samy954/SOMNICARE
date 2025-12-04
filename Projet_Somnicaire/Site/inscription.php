@@ -79,10 +79,10 @@ $conn->close();
             <!-- Navigation centrale -->
             <nav class="main-nav">
                 <ul class="nav-links">
-                    <li><a href="index.html">Accueil</a></li>
-                    <li><a href="troubles-sommeil.html">Les troubles du sommeil</a></li>
-                    <li><a href="somnyl.html">Somnyl</a></li>
-                    <li><a href="methode.html">Méthode</a></li>
+                    <li><a href="index.php">Accueil</a></li>
+                    <li><a href="troubles-sommeil.php">Les troubles du sommeil</a></li>
+                    <li><a href="somnyl.php">Somnyl</a></li>
+                    <li><a href="methode.php">Méthode</a></li>
                     <li><a href="contact.php">Contact</a></li>
                 </ul>
             </nav>

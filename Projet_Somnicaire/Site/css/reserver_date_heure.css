@@ -1,0 +1,223 @@
+/* === STYLE GÉNÉRAL === */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f9f9fb;
+    color: #2c3e50;
+    line-height: 1.6;
+}
+
+h1, h2, h3 {
+    color: #4b3f72;
+    margin-bottom: 15px;
+}
+
+/* === SECTION PRINCIPALE === */
+.rdv-section {
+    padding: 60px 0;
+}
+
+.rdv-section .container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: #fff;
+    padding: 40px;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* === ALERTES === */
+.alert {
+    padding: 12px 20px;
+    border-radius: 6px;
+    margin-bottom: 20px;
+    font-weight: bold;
+    text-align: center;
+}
+
+.alert.error {
+    background-color: #ffe3e3;
+    color: #b30000;
+}
+
+/* === FORMULAIRE === */
+.form-rdv {
+    margin-bottom: 30px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.form-group label {
+    font-weight: bold;
+    color: #4b3f72;
+    font-size: 16px;
+}
+
+.form-group input[type="date"] {
+    padding: 10px 15px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    outline: none;
+    transition: 0.3s;
+}
+
+.form-group input[type="date"]:focus {
+    border-color: #4b3f72;
+    box-shadow: 0 0 4px rgba(75, 63, 114, 0.3);
+}
+
+.btn-check {
+    background-color: #4b3f72;
+    color: white;
+    border: none;
+    padding: 10px 18px;
+    border-radius: 6px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.btn-check:hover {
+    background-color: #392d5a;
+}
+
+/* === GRILLE DES CRÉNEAUX === */
+.grid-creneaux {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    gap: 12px;
+    margin: 25px 0;
+}
+
+.creneau {
+    background-color: #f0f0f7;
+    border: 1px solid #ddd;
+    padding: 12px;
+    text-align: center;
+    border-radius: 8px;
+    font-weight: 600;
+    color: #2c3e50;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.creneau input {
+    display: none;
+}
+
+.creneau span {
+    display: inline-block;
+    transition: all 0.25s ease;
+}
+
+/* Animation de survol */
+.creneau:not(.disabled):hover span {
+    background-color: #e2dff5;
+    border-radius: 8px;
+    transform: scale(1.05);
+}
+
+/* Quand un créneau est sélectionné */
+.creneau input[type="radio"]:checked + span {
+    background-color: #4b3f72;
+    color: #fff;
+    border-radius: 8px;
+    padding: 8px 14px;
+    transform: scale(1.08);
+    box-shadow: 0 0 8px rgba(75, 63, 114, 0.3);
+}
+
+/* Créneaux désactivés */
+.creneau.disabled {
+    background-color: #ddd;
+    color: #888;
+    cursor: not-allowed;
+    opacity: 0.6;
+}
+
+.creneau.disabled span {
+    background-color: #ddd;
+    color: #777;
+    transform: none;
+}
+
+/* === MODE DE CONSULTATION === */
+.mode-select {
+    display: flex;
+    gap: 30px;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.mode-select label {
+    font-weight: 600;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.mode-select input[type="radio"] {
+    margin-right: 8px;
+}
+
+/* === BOUTONS === */
+.buttons {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 40px;
+}
+
+.btn {
+    padding: 12px 25px;
+    font-weight: bold;
+    border-radius: 8px;
+    text-decoration: none;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.btn-primary {
+    background-color: #4b3f72;
+    color: white;
+    border: none;
+}
+
+.btn-primary:hover {
+    background-color: #392d5a;
+}
+
+.btn-secondary {
+    background-color: #ccc;
+    color: #333;
+}
+
+.btn-secondary:hover {
+    background-color: #bbb;
+}
+
+/* === RESPONSIVE === */
+@media (max-width: 768px) {
+    .form-rdv {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .buttons {
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .mode-select {
+        flex-direction: column;
+        gap: 10px;
+        text-align: center;
+    }
+
+    .grid-creneaux {
+        grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+    }
+}

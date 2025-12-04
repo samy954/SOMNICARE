@@ -1,0 +1,133 @@
+/* === PAGE RÉSERVER : MOTIF === */
+.motif-section {
+  padding: 60px 0;
+  background-color: #fff;
+}
+
+.motif-section h2 {
+  text-align: center;
+  color: #2c3e50;
+  margin-bottom: 40px;
+  font-size: 28px;
+}
+
+/* Progress bar */
+.progress {
+  background-color: #fafafa;
+  border-bottom: 1px solid #eee;
+  padding: 20px 0;
+}
+
+.steps {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  list-style: none;
+  gap: 30px;
+}
+
+.steps li {
+  position: relative;
+  text-align: center;
+  color: #bbb;
+  font-weight: 600;
+}
+
+.steps li::before {
+  content: attr(data-step);
+}
+
+.steps li.active {
+  color: #5b4b8a;
+}
+
+.steps li span {
+  display: block;
+  font-size: 13px;
+  margin-top: 5px;
+  color: inherit;
+}
+
+/* Motif grid */
+.motif-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 25px;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.motif-card {
+  background: #f8f9fa;
+  border-radius: 12px;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
+  overflow: hidden;
+  transition: transform 0.2s ease;
+}
+
+.motif-card:hover {
+  transform: translateY(-5px);
+}
+
+.motif-type {
+  padding: 10px 15px;
+  color: #fff;
+  font-weight: bold;
+}
+
+.motif-type.insomnia { background-color: #c39bd3; }
+.motif-type.apnea { background-color: #f8a5c2; }
+.motif-type.sleep { background-color: #a29bfe; }
+.motif-type.parasomnia { background-color: #81ecec; }
+
+.motif-info {
+  padding: 20px;
+}
+
+.motif-info h3 {
+  font-size: 18px;
+  color: #2c3e50;
+  margin-bottom: 10px;
+}
+
+.motif-info p {
+  color: #7f8c8d;
+  font-size: 14px;
+  margin-bottom: 15px;
+}
+
+.btn-choose {
+  display: inline-block;
+  background-color: #5b4b8a;
+  color: #fff;
+  padding: 10px 20px;
+  border-radius: 6px;
+  text-decoration: none;
+  font-weight: 600;
+  transition: background 0.3s;
+}
+
+.btn-choose:hover {
+  background-color: #4a3d75;
+}
+
+.cancel-area {
+  text-align: center;
+  margin-top: 40px;
+}
+
+.btn-cancel {
+  text-decoration: none;
+  color: #555;
+  background-color: #f0f0f0;
+  padding: 10px 25px;
+  border-radius: 6px;
+  font-weight: 500;
+  transition: background 0.3s;
+}
+
+.btn-cancel:hover {
+  background-color: #ddd;
+}
+
+
