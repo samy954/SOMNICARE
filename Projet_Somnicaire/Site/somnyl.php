@@ -1,5 +1,49 @@
 <?php
-session_start(); // ✅ Pour afficher le prénom connecté dans la navbar
+session_start();
+
+// 🟣 Gestion du bouton "Ajouter au panier"
+if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["add_to_cart"])) {
+
+    // Vérifie si l'utilisateur est connecté
+    if (!isset($_SESSION["id_utilisateur"])) {
+        header("Location: connexion.php");
+        exit;
+    }
+
+    // Initialise le panier si vide
+    if (!isset($_SESSION["panier"])) {
+        $_SESSION["panier"] = [];
+    }
+
+    // Données du produit Somnyl (avec image)
+    $produit = [
+        "id" => 1,
+        "nom" => "Somnyl - Gélules",
+        "prix" => 29.99,
+        "quantite" => 1,
+        "taille" => $_POST["taille"] ?? "30",
+        "image" => "images/gelules.png" // ✅ ajout du visuel produit
+    ];
+
+    // Si le produit existe déjà dans le panier, on augmente la quantité
+    $existe = false;
+    foreach ($_SESSION["panier"] as &$item) {
+        if ($item["id"] == $produit["id"] && $item["taille"] == $produit["taille"]) {
+            $item["quantite"]++;
+            $existe = true;
+            break;
+        }
+    }
+
+    // Sinon, on ajoute le produit
+    if (!$existe) {
+        $_SESSION["panier"][] = $produit;
+    }
+
+    // Redirection vers la page panier
+    header("Location: panier.php");
+    exit;
+}
 ?>
 <!DOCTYPE html>
 <html lang="fr">
@@ -7,13 +51,12 @@ session_start(); // ✅ Pour afficher le prénom connecté dans la navbar
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Somnyl - Produit</title>
-  <link rel="stylesheet" href="css/somnyl.css" />
   <link rel="stylesheet" href="css/base.css" />
+  <link rel="stylesheet" href="css/somnyl.css" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 </head>
 <body>
-  <!-- Header SomniCare -->
+  <!-- ✅ HEADER IDENTIQUE À INDEX -->
   <header>
     <div class="container">
       <div class="header-content">
@@ -43,10 +86,9 @@ session_start(); // ✅ Pour afficher le prénom connecté dans la navbar
             <span class="language-text">FR</span>
           </div>
 
-          <!-- ✅ Bouton dynamique -->
           <?php if (isset($_SESSION["prenom"])): ?>
               <a href="espace.php" class="btn-identifier">
-                  Mon espace (<?php echo htmlspecialchars($_SESSION["prenom"]); ?>)
+                  Mon espace (<?= htmlspecialchars($_SESSION["prenom"]); ?>)
               </a>
           <?php else: ?>
               <a href="connexion.php" class="btn-identifier">S'identifier</a>
@@ -56,7 +98,7 @@ session_start(); // ✅ Pour afficher le prénom connecté dans la navbar
     </div>
   </header>
 
-  <!-- Contenu principal -->
+  <!-- ✅ CONTENU PRODUIT -->
   <main class="container">
     <div class="left">
       <div class="thumbs">
@@ -82,15 +124,21 @@ session_start(); // ✅ Pour afficher le prénom connecté dans la navbar
         <li>Idéal pour rétablir un cycle de sommeil harmonieux et profond, sans accoutumance ni sensation de fatigue au réveil.</li>
       </ul>
 
-      <h3 class="label">TAILLE</h3>
-      <div class="sizes">
-        <button class="size selected">30</button>
-        <button class="size">60</button>
-        <button class="size">90</button>
-        <button class="size">120</button>
-      </div>
+      <!-- 🟣 FORMULAIRE AJOUT PANIER -->
+      <form method="POST">
+        <h3 class="label">TAILLE</h3>
+        <div class="sizes">
+          <button type="button" class="size selected" data-size="30">30</button>
+          <button type="button" class="size" data-size="60">60</button>
+          <button type="button" class="size" data-size="90">90</button>
+          <button type="button" class="size" data-size="120">120</button>
+        </div>
 
-      <button class="add">Ajouter au panier</button>
+        <input type="hidden" name="taille" id="selectedSize" value="30">
+
+        <button type="submit" name="add_to_cart" class="add">Ajouter au panier</button>
+      </form>
+
       <button class="fav">Ajouter aux favoris</button>
 
       <details class="dropdown">
@@ -111,37 +159,16 @@ session_start(); // ✅ Pour afficher le prénom connecté dans la navbar
     </div>
   </main>
 
-  <!-- Script pour changer les images -->
+  <!-- Script pour sélection de taille -->
   <script>
   const sizeBtns = document.querySelectorAll(".size");
+  const sizeInput = document.getElementById("selectedSize");
 
   sizeBtns.forEach(btn => {
       btn.addEventListener("click", () => {
           sizeBtns.forEach(b => b.classList.remove("selected"));
           btn.classList.add("selected");
-      });
-  });
-
-  const mainZone = document.querySelector(".main-img");
-  const thumbsList = document.querySelectorAll(".thumb");
-
-  thumbsList.forEach(el => {
-      el.addEventListener("click", () => {
-          mainZone.innerHTML = "";
-          if (el.tagName === "IMG") {
-              const img = document.createElement("img");
-              img.src = el.src;
-              img.classList.add("product-main");
-              mainZone.appendChild(img);
-          }
-          if (el.tagName === "VIDEO") {
-              const vid = document.createElement("video");
-              vid.src = el.src;
-              vid.controls = true;
-              vid.autoplay = true;
-              vid.classList.add("product-main");
-              mainZone.appendChild(vid);
-          }
+          sizeInput.value = btn.dataset.size;
       });
   });
   </script>

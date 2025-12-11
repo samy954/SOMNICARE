@@ -1,5 +1,40 @@
 <?php
-session_start(); 
+session_start();
+
+// --- Si aucun panier, on initialise ---
+if (!isset($_SESSION["panier"])) {
+    $_SESSION["panier"] = [];
+}
+
+// --- Gérer les actions sur le panier ---
+if (isset($_GET["action"], $_GET["index"])) {
+    $index = (int) $_GET["index"];
+
+    if ($_GET["action"] === "plus" && isset($_SESSION["panier"][$index])) {
+        $_SESSION["panier"][$index]["quantite"]++;
+    }
+
+    if ($_GET["action"] === "moins" && isset($_SESSION["panier"][$index])) {
+        if ($_SESSION["panier"][$index]["quantite"] > 1) {
+            $_SESSION["panier"][$index]["quantite"]--;
+        }
+    }
+
+    if ($_GET["action"] === "remove" && isset($_SESSION["panier"][$index])) {
+        array_splice($_SESSION["panier"], $index, 1); // supprime l’élément
+    }
+
+    header("Location: panier.php");
+    exit;
+}
+
+// --- Calcul du total ---
+$sous_total = 0;
+foreach ($_SESSION["panier"] as $item) {
+    $sous_total += $item["prix"] * $item["quantite"];
+}
+$livraison = $sous_total > 0 ? 4.00 : 0.00;
+$total = $sous_total + $livraison;
 ?>
 <!DOCTYPE html>
 <html lang="fr">
@@ -8,24 +43,23 @@ session_start();
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Panier - SomniCare</title>
   <link rel="stylesheet" href="css/base.css">
-  <link rel="stylesheet" href="css/somnyl.css">
-  <link rel="stylesheet" href="css/panier.css" type="text/css" media="screen">
+  <link rel="stylesheet" href="css/panier.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
-  <!-- Header principal -->
+
+  <!-- HEADER -->
   <header>
     <div class="container">
       <div class="header-content">
-
-        <!-- Logo à gauche -->
+        <!-- Logo -->
         <div class="logo">
           <div class="logo-image">
             <img src="images/logo.png" alt="SomniCare">
           </div>
         </div>
 
-        <!-- Navigation centrale -->
+        <!-- Navigation -->
         <nav class="main-nav">
           <ul class="nav-links">
             <li><a href="index.php">Accueil</a></li>
@@ -36,17 +70,15 @@ session_start();
           </ul>
         </nav>
 
-        <!-- Côté droit - Langue et identification -->
+        <!-- Côté droit -->
         <div class="header-right">
           <div class="language-selector">
             <i class="fas fa-globe language-icon"></i>
             <span class="language-text">FR</span>
           </div>
-
-          <!-- ✅ Bouton dynamique -->
           <?php if (isset($_SESSION["prenom"])): ?>
               <a href="espace.php" class="btn-identifier">
-                  Mon espace (<?php echo htmlspecialchars($_SESSION["prenom"]); ?>)
+                  Mon espace (<?= htmlspecialchars($_SESSION["prenom"]); ?>)
               </a>
           <?php else: ?>
               <a href="connexion.php" class="btn-identifier">S'identifier</a>
@@ -56,56 +88,55 @@ session_start();
     </div>
   </header>
 
-  <!-- Contenu principal -->
+  <!-- CONTENU -->
   <main class="page">
     <section class="cart-area">
-      <h2>Panier</h2>
-      <p class="subtext">Vous avez 1 produit dans votre panier</p>
+      <h2>🛒 Votre panier</h2>
 
-      <div class="product-card">
-        <img src="images/somnyl.png" alt="Somnyl" class="product-thumb">
-        <div class="product-info">
-          <div class="product-title">Somnyl</div>
-          <div class="product-format">Format 60 gélules</div>
-        </div>
-        <div class="product-controls">
-          <div class="qty">
-            <button class="qty-btn">−</button>
-            <span class="qty-value">1</span>
-            <button class="qty-btn">+</button>
-          </div>
-          <div class="price">29.99€</div>
-          <button class="trash" aria-label="Retirer">🗑️</button>
-        </div>
-      </div>
+      <?php if (empty($_SESSION["panier"])): ?>
+          <p class="empty-cart">Votre panier est vide.</p>
+          <a href="somnyl.php" class="btn btn-primary">Voir nos produits</a>
+      <?php else: ?>
+          <?php foreach ($_SESSION["panier"] as $index => $item): ?>
+              <div class="product-card">
+                <img src="<?= htmlspecialchars($item["image"]); ?>" alt="<?= htmlspecialchars($item["nom"]); ?>" class="product-thumb">
+                <div class="product-info">
+                  <div class="product-title"><?= htmlspecialchars($item["nom"]); ?></div>
+                  <div class="product-format"><?= htmlspecialchars($item["taille"]); ?> gélules</div>
+                </div>
 
-      <hr class="divider">
-
-      <h3 class="fav-title">Ajoutez vos produits favoris</h3>
-      <div class="favs">
-        <div class="fav-card">
-          <img src="images/somnyl.png" alt="Gélules Somnyl" class="fav-thumb">
-          <div class="fav-name">Gélules Somnyl</div>
-          <div class="fav-price">29.99€</div>
-        </div>
-      </div>
+                <div class="product-controls">
+                  <div class="qty">
+                    <a href="?action=moins&index=<?= $index; ?>" class="qty-btn">−</a>
+                    <span class="qty-value"><?= $item["quantite"]; ?></span>
+                    <a href="?action=plus&index=<?= $index; ?>" class="qty-btn">+</a>
+                  </div>
+                  <div class="price"><?= number_format($item["prix"] * $item["quantite"], 2); ?> €</div>
+                  <a href="?action=remove&index=<?= $index; ?>" class="trash" title="Retirer">🗑️</a>
+                </div>
+              </div>
+          <?php endforeach; ?>
+      <?php endif; ?>
     </section>
 
+    <!-- Résumé -->
     <aside class="summary">
       <div class="summary-box">
-        <div class="summary-row"><span>Sous-total</span><span>29.99€</span></div>
-        <div class="summary-row"><span>Livraison</span><span>4€</span></div>
-        <div class="summary-row total"><span>Total (TTC)</span><span>33.99€</span></div>
+        <div class="summary-row"><span>Sous-total</span><span><?= number_format($sous_total, 2); ?> €</span></div>
+        <div class="summary-row"><span>Livraison</span><span><?= number_format($livraison, 2); ?> €</span></div>
+        <div class="summary-row total"><span>Total (TTC)</span><span><?= number_format($total, 2); ?> €</span></div>
 
-        <button class="pay-btn">
-          <span class="pay-amount">33.99€</span>
-          <span class="pay-text">Payer →</span>
-        </button>
+        <?php if ($sous_total > 0): ?>
+            <button class="pay-btn">
+              <span class="pay-amount"><?= number_format($total, 2); ?> €</span>
+              <span class="pay-text">Payer →</span>
+            </button>
+        <?php endif; ?>
       </div>
     </aside>
   </main>
 
-  <!-- Footer -->
+  <!-- FOOTER -->
   <footer>
     <div class="container">
       <div class="footer-content">
@@ -119,5 +150,6 @@ session_start();
       </div>
     </div>
   </footer>
+
 </body>
 </html>

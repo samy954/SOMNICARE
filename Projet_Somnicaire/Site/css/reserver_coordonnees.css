@@ -1,0 +1,151 @@
+/* === SECTION PRINCIPALE === */
+.form-section {
+    padding: 60px 0;
+    background-color: #f9f9fb;
+}
+
+.form-container {
+    background: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+    max-width: 850px;
+    margin: 0 auto;
+    padding: 40px 50px;
+}
+
+/* === TITRES === */
+.page-header h1 {
+    font-size: 32px;
+    color: #4b3f72;
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+.page-header p {
+    color: #666;
+    text-align: center;
+    font-size: 16px;
+    margin-bottom: 20px;
+}
+
+/* === FORMULAIRE === */
+.coordonnees-form {
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+}
+
+.form-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+}
+
+.coordonnees-form input,
+.coordonnees-form select,
+.coordonnees-form textarea {
+    padding: 12px 16px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    font-size: 16px;
+    transition: border-color 0.3s, box-shadow 0.3s;
+    font-family: "Arial", sans-serif;
+}
+
+.coordonnees-form input:focus,
+.coordonnees-form select:focus,
+.coordonnees-form textarea:focus {
+    border-color: #4b3f72;
+    box-shadow: 0 0 6px rgba(75, 63, 114, 0.3);
+    outline: none;
+}
+
+.coordonnees-form textarea {
+    resize: vertical;
+    min-height: 100px;
+}
+
+/* === INFO BOX === */
+.info-box {
+    background-color: #f4f2fa;
+    border-left: 5px solid #4b3f72;
+    padding: 15px 20px;
+    border-radius: 8px;
+    font-size: 14px;
+    color: #555;
+    line-height: 1.6;
+}
+
+/* === ALERTES === */
+.alert {
+    padding: 12px 20px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    font-weight: bold;
+    text-align: center;
+}
+
+.alert.error {
+    background-color: #ffe3e3;
+    color: #b30000;
+}
+
+/* === BOUTONS === */
+.buttons {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 30px;
+    gap: 20px;
+}
+
+.btn {
+    padding: 12px 25px;
+    font-weight: bold;
+    border-radius: 8px;
+    text-decoration: none;
+    font-size: 16px;
+    cursor: pointer;
+    transition: all 0.3s;
+    text-align: center;
+    border: none;
+}
+
+.btn-primary {
+    background-color: #4b3f72;
+    color: white;
+}
+
+.btn-primary:hover {
+    background-color: #392d5a;
+}
+
+.btn-secondary {
+    background-color: #ccc;
+    color: #333;
+}
+
+.btn-secondary:hover {
+    background-color: #bbb;
+}
+
+
+
+/* === RESPONSIVE === */
+@media (max-width: 768px) {
+    .form-container {
+        padding: 30px 20px;
+    }
+
+    .form-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .buttons {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .btn {
+        width: 100%;
+    }
+}

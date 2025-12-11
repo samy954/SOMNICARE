@@ -132,6 +132,14 @@ h1, h2, h3 {
     box-shadow: 0 0 8px rgba(75, 63, 114, 0.3);
 }
 
+.creneau label.active {
+  background-color: #4b3f72 !important;
+  color: #fff !important;
+  transform: scale(1.05);
+  box-shadow: 0 0 8px rgba(75,63,114,0.3);
+}
+
+
 /* Créneaux désactivés */
 .creneau.disabled {
     background-color: #ddd;

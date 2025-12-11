@@ -1,0 +1,113 @@
+/* === SECTION PRINCIPALE === */
+.resume-section {
+    background-color: #f9f9fb;
+    padding: 60px 0;
+}
+
+.resume-section .container.grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 40px;
+    align-items: flex-start;
+    max-width: 1000px;
+}
+
+/* === BLOCS GAUCHE & DROITE === */
+.info-card, .payment-card {
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+    padding: 25px 30px;
+}
+
+.info-card p, .payment-card p {
+    font-size: 16px;
+    margin-bottom: 12px;
+    color: #333;
+}
+
+.info-card strong {
+    color: #4b3f72;
+}
+
+/* === TITRES === */
+h1 {
+    text-align: center;
+    color: #4b3f72;
+    margin-bottom: 30px;
+}
+
+/* === BOUTONS === */
+.buttons {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 25px;
+}
+
+.btn {
+    padding: 12px 20px;
+    border-radius: 8px;
+    font-weight: bold;
+    text-decoration: none;
+    cursor: pointer;
+    transition: 0.3s;
+    font-size: 15px;
+    text-align: center;
+}
+
+.btn-primary {
+    background-color: #4b3f72;
+    color: white;
+    border: none;
+}
+
+.btn-primary:hover {
+    background-color: #392d5a;
+}
+
+.btn-secondary {
+    background-color: #ccc;
+    color: #333;
+}
+
+.btn-secondary:hover {
+    background-color: #bbb;
+}
+
+/* === PAIEMENT === */
+.payment-card h3 {
+    color: #4b3f72;
+    margin-bottom: 20px;
+}
+
+.payment-method {
+    background-color: #f4f2fa;
+    padding: 15px;
+    border-radius: 8px;
+}
+
+.btn-edit {
+    margin-top: 10px;
+    background-color: #ddd;
+    border: none;
+    padding: 6px 12px;
+    border-radius: 6px;
+    cursor: not-allowed;
+    color: #555;
+}
+
+/* === RESPONSIVE === */
+@media (max-width: 850px) {
+    .resume-section .container.grid {
+        grid-template-columns: 1fr;
+    }
+
+    .buttons {
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .btn {
+        width: 100%;
+    }
+}

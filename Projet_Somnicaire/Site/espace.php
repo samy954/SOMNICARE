@@ -101,8 +101,8 @@ $nb_cmd = $conn->query("SELECT COUNT(*) AS total FROM commandes WHERE id_client 
                 </nav>
 
                 <div class="header-right">
-                    <a href="panier.php" class="btn-identifier">🛒 Panier</a>
-                    <a href="logout.php" class="btn-identifier">🚪 Déconnexion</a>
+                    <a href="panier.php" class="btn-identifier"> Panier</a>
+                    <a href="logout.php" class="btn-identifier"> Déconnexion</a>
                 </div>
             </div>
         </div>
@@ -111,7 +111,7 @@ $nb_cmd = $conn->query("SELECT COUNT(*) AS total FROM commandes WHERE id_client 
     <!-- CONTENU PRINCIPAL -->
     <section class="page-header">
         <div class="container">
-            <h1>Bienvenue, <?php echo htmlspecialchars($user["prenom"]); ?> 👋</h1>
+            <h1>Bienvenue, <?php echo htmlspecialchars($user["prenom"]); ?> </h1>
             <p>Voici votre espace personnel SomniCare</p>
         </div>
     </section>

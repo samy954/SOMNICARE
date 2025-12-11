@@ -3,10 +3,22 @@ session_start();
 require_once("../config.php");
 $_SESSION["etape"] = 2;
 
-// Vérifie si un praticien est choisi
-if (isset($_POST["choisir"])) {
-    $_SESSION["id_specialiste"] = $_POST["id_specialiste"];
-    $_SESSION["nom_specialiste"] = $_POST["nom_specialiste"];
+// 🔒 Vérifie qu’un motif a bien été choisi avant cette étape
+if (!isset($_SESSION["motif"])) {
+    header("Location: etape1_motif.php");
+    exit;
+}
+
+// 🔒 Vérifie que l'utilisateur est connecté
+if (!isset($_SESSION["id_utilisateur"])) {
+    // pour les tests uniquement
+    $_SESSION["id_utilisateur"] = 1;
+}
+
+// ✅ Si un praticien est choisi (formulaire envoyé)
+if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["choisir"])) {
+    $_SESSION["id_specialiste"] = intval($_POST["id_specialiste"]);
+    $_SESSION["nom_specialiste"] = htmlspecialchars($_POST["nom_specialiste"]);
     header("Location: etape3_date_heure.php");
     exit;
 }
@@ -25,6 +37,7 @@ if (isset($_POST["choisir"])) {
 </head>
 <body>
 
+<!-- ====== HEADER ====== -->
 <header>
   <div class="container">
     <div class="header-content">
@@ -48,7 +61,7 @@ if (isset($_POST["choisir"])) {
       <div class="header-right">
         <div class="language-selector">
           <i class="fas fa-globe language-icon"></i>
-          <span class="laguage-text">FR</span>
+          <span class="language-text">FR</span>
         </div>
         <a href="../espace.php" class="btn-identifier">Mon espace</a>
       </div>
@@ -56,6 +69,7 @@ if (isset($_POST["choisir"])) {
   </div>
 </header>
 
+<!-- ====== TITRE ====== -->
 <section class="page-header">
   <div class="container">
     <h1>Choisissez votre praticien</h1>
@@ -63,13 +77,17 @@ if (isset($_POST["choisir"])) {
   </div>
 </section>
 
+<!-- ====== CONTENU PRINCIPAL ====== -->
 <section class="map-section">
   <div class="container grid">
+    <!-- Liste praticiens défilante -->
     <div class="doctor-list" id="doctorList"></div>
+    <!-- Carte -->
     <div id="map"></div>
   </div>
 </section>
 
+<!-- ====== FOOTER ====== -->
 <footer>
   <div class="container">
     <div class="footer-content">
@@ -85,33 +103,42 @@ if (isset($_POST["choisir"])) {
 </footer>
 
 <script>
+// ====== RÉCUPÉRATION DES PRATICIENS ======
 const praticiens = <?php
-  $result = $conn->query("
-    SELECT s.id_specialiste, u.nom, u.prenom, u.email, s.bio, s.tarif_consultation, 
-           s.disponibilite, s.latitude, s.longitude 
-    FROM specialistes s 
+  $query = "
+    SELECT s.id_specialiste, u.nom, u.prenom, u.email, 
+           IFNULL(s.bio, 'Spécialiste du sommeil certifié') AS bio,
+           IFNULL(s.tarif_consultation, 60) AS tarif_consultation,
+           IFNULL(s.disponibilite, 'Lun-Ven') AS disponibilite,
+           s.latitude, s.longitude
+    FROM specialistes s
     JOIN utilisateurs u ON s.id_utilisateur = u.id_utilisateur
-  ");
+  ";
+  $result = $conn->query($query);
   $data = [];
   while($row = $result->fetch_assoc()) $data[] = $row;
   echo json_encode($data);
 ?>;
 
-// Initialisation carte
+// ====== INITIALISATION DE LA CARTE ======
 const map = L.map('map').setView([46.603354, 1.888334], 6);
 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
   attribution: '© OpenStreetMap contributors'
 }).addTo(map);
 
-// Marqueurs praticiens
+// ====== AJOUT DES MARQUEURS ======
 praticiens.forEach(p => {
   if (p.latitude && p.longitude) {
     const marker = L.marker([p.latitude, p.longitude]).addTo(map);
-    marker.bindPopup(`<b>Dr. ${p.prenom} ${p.nom}</b><br>${p.bio}<br>${p.tarif_consultation}€`);
+    marker.bindPopup(`
+      <b>Dr. ${p.prenom} ${p.nom}</b><br>
+      ${p.bio}<br>
+      ${p.tarif_consultation}€
+    `);
   }
 });
 
-// Liste praticiens
+// ====== GÉNÉRATION DE LA LISTE ======
 const listContainer = document.getElementById("doctorList");
 praticiens.forEach(p => {
   const card = document.createElement("div");
@@ -122,26 +149,28 @@ praticiens.forEach(p => {
       <h3>Dr. ${p.prenom} ${p.nom}</h3>
       <p>${p.bio}</p>
       <p><strong>${p.tarif_consultation}€</strong> — ${p.disponibilite}</p>
-      <button onclick="alert('Email : ${p.email}')">Contacter</button>
 
-      <!-- FORMULAIRE CHOISIR -->
       <form method="POST">
         <input type="hidden" name="id_specialiste" value="${p.id_specialiste}">
         <input type="hidden" name="nom_specialiste" value="Dr. ${p.prenom} ${p.nom}">
         <button type="submit" name="choisir" class="btn-choose">Choisir</button>
+        <button type="button" class="btn-contact" onclick="alert('Email : ${p.email}')">Contacter</button>
       </form>
     </div>
   `;
   listContainer.appendChild(card);
 });
 
-// Géolocalisation utilisateur
+// ====== GÉOLOCALISATION UTILISATEUR ======
 if (navigator.geolocation) {
   navigator.geolocation.getCurrentPosition(pos => {
-    const userMarker = L.marker([pos.coords.latitude, pos.coords.longitude], {color: 'blue'}).addTo(map);
-    userMarker.bindPopup("Vous êtes ici").openPopup();
+    const userMarker = L.marker([pos.coords.latitude, pos.coords.longitude], {
+      title: "Votre position",
+      icon: L.icon({iconUrl: 'https://cdn-icons-png.flaticon.com/512/64/64113.png', iconSize: [25,25]})
+    }).addTo(map);
+    userMarker.bindPopup("📍 Vous êtes ici").openPopup();
     map.setView([pos.coords.latitude, pos.coords.longitude], 8);
-  }, () => console.warn("Géolocalisation refusée"));
+  }, () => console.warn("Géolocalisation refusée."));
 }
 </script>
 </body>
