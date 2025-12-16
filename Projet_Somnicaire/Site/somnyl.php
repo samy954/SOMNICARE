@@ -15,17 +15,32 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["add_to_cart"])) {
         $_SESSION["panier"] = [];
     }
 
-    // Données du produit Somnyl (avec image)
+    // 🟢 Prix officiels par taille (SÉCURITÉ)
+    $prixParTaille = [
+        "30"  => 19.90,
+        "60"  => 34.90,
+        "90"  => 49.90,
+        "120" => 64.90
+    ];
+
+    $taille = $_POST["taille"] ?? "30";
+
+    // Sécurité taille
+    if (!isset($prixParTaille[$taille])) {
+        die("Taille invalide");
+    }
+
+    // Données du produit Somnyl
     $produit = [
         "id" => 1,
         "nom" => "Somnyl - Gélules",
-        "prix" => 29.99,
+        "prix" => $prixParTaille[$taille], // ✅ PRIX DYNAMIQUE
         "quantite" => 1,
-        "taille" => $_POST["taille"] ?? "30",
-        "image" => "images/gelules.png" // ✅ ajout du visuel produit
+        "taille" => $taille,
+        "image" => "images/gelules.png"
     ];
 
-    // Si le produit existe déjà dans le panier, on augmente la quantité
+    // Si le produit existe déjà dans le panier (même taille)
     $existe = false;
     foreach ($_SESSION["panier"] as &$item) {
         if ($item["id"] == $produit["id"] && $item["taille"] == $produit["taille"]) {
@@ -39,10 +54,9 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["add_to_cart"])) {
     if (!$existe) {
         $_SESSION["panier"][] = $produit;
     }
-
-    // Redirection vers la page panier
-    header("Location: panier.php");
-    exit;
+    
+  header("Location: panier.php");
+  exit;
 }
 ?>
 <!DOCTYPE html>
@@ -116,7 +130,10 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["add_to_cart"])) {
 
     <div class="right">
       <h1>Gélules Somnyl</h1>
-      <div class="price">29.99€</div>
+      <div class="price">
+        <span id="price">19.90</span> €
+      </div>
+
 
       <ul class="info">
         <li><strong>Sérénité, relaxation et sommeil réparateur</strong></li>
@@ -158,6 +175,46 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["add_to_cart"])) {
       </details>
     </div>
   </main>
+  <script>
+/* 1️⃣ On récupère tous les boutons de taille */
+    const sizeBtns = document.querySelectorAll(".size");
+
+/* 2️⃣ On récupère l’input caché */
+    const sizeInput = document.getElementById("selectedSize");
+
+/* 3️⃣ On récupère l’endroit où le prix est affiché */
+    const priceSpan = document.getElementById("price");
+
+/* 4️⃣ Tableau des prix (AFFICHAGE UNIQUEMENT) */
+    const prixParTaille = {
+      30: 19.90,
+      60: 34.90,
+      90: 49.90,
+      120: 64.90
+    };
+
+/* 5️⃣ Quand on clique sur un bouton */
+    sizeBtns.forEach(btn => {
+      btn.addEventListener("click", () => {
+
+        /* a) On enlève la sélection sur tous */
+        sizeBtns.forEach(b => b.classList.remove("selected"));
+
+        /* b) On sélectionne le bouton cliqué */
+        btn.classList.add("selected");
+
+        /* c) On récupère la taille du bouton */
+        const taille = btn.dataset.size;
+
+        /* d) On enregistre la taille pour le PHP */
+        sizeInput.value = taille;
+
+        /* e) On change le prix affiché */
+        priceSpan.textContent = prixParTaille[taille].toFixed(2);
+       });
+    });
+  </script>
+
 
   <!-- Script pour sélection de taille -->
   <script>

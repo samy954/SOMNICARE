@@ -127,10 +127,13 @@ $total = $sous_total + $livraison;
         <div class="summary-row total"><span>Total (TTC)</span><span><?= number_format($total, 2); ?> €</span></div>
 
         <?php if ($sous_total > 0): ?>
-            <button class="pay-btn">
-              <span class="pay-amount"><?= number_format($total, 2); ?> €</span>
-              <span class="pay-text">Payer →</span>
-            </button>
+            <form action="paiement.php" method="POST">
+              <input type="hidden" name="total" value="<?= $total; ?>">
+              <button type="submit" class="pay-btn">
+                <span class="pay-amount"><?= number_format($total, 2); ?> €</span>
+                <span class="pay-text">Payer →</span>
+              </button>
+            </form>
         <?php endif; ?>
       </div>
     </aside>
