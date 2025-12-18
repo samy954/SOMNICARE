@@ -73,43 +73,55 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["add_to_cart"])) {
   <!-- ✅ HEADER IDENTIQUE À INDEX -->
   <header>
     <div class="container">
-      <div class="header-content">
+        <div class="header-content">
 
-        <!-- Logo -->
-        <div class="logo">
-          <div class="logo-image">
-            <img src="images/logo.png" alt="SomniCare">
+            <!-- Logo -->
+            <div class="logo">
+                <div class="logo-image">
+                    <img src="images/logo.png" alt="SomniCare">
+                </div>
+            </div>
+
+            <!-- Navigation -->
+            <nav class="main-nav">
+                <ul class="nav-links">
+                    <li><a href="index.php">Accueil</a></li>
+                    <li><a href="troubles-sommeil.php">Les troubles du sommeil</a></li>
+                    <li><a href="somnyl.php">Somnyl</a></li>
+                    <li><a href="methode.php">Méthode</a></li>
+                    <li><a href="contact.php">Contact</a></li>
+                </ul>
+            </nav>
+
+            <!-- Côté droit -->
+            <div class="header-right">
+
+                <!-- Langue -->
+                <div class="language-selector">
+                    <i class="fas fa-globe language-icon"></i>
+                    <span class="language-text">FR</span>
+                </div>
+
+                <!-- Bouton dynamique -->
+                <?php if (isset($_SESSION['id_utilisateur'], $_SESSION['role'])): ?>
+
+                    <?php if ($_SESSION['role'] === 'specialiste'): ?>
+                        <a href="espace_medecin.php" class="btn-identifier">
+                            Espace médecin (<?= htmlspecialchars($_SESSION['prenom']) ?>)
+                        </a>
+                    <?php else: ?>
+                        <a href="espace.php" class="btn-identifier">
+                            Mon espace (<?= htmlspecialchars($_SESSION['prenom']) ?>)
+                        </a>
+                    <?php endif; ?>
+
+                <?php else: ?>
+                    <a href="connexion.php" class="btn-identifier">S'identifier</a>
+                <?php endif; ?>
+
+              </div>
           </div>
-        </div>
-
-        <!-- Navigation -->
-        <nav class="main-nav">
-          <ul class="nav-links">
-            <li><a href="index.php">Accueil</a></li>
-            <li><a href="troubles-sommeil.php">Les troubles du sommeil</a></li>
-            <li><a href="somnyl.php" class="active">Somnyl</a></li>
-            <li><a href="methode.php">Méthode</a></li>
-            <li><a href="contact.php">Contact</a></li>
-          </ul>
-        </nav>
-
-        <!-- Côté droit -->
-        <div class="header-right">
-          <div class="language-selector">
-            <i class="fas fa-globe language-icon"></i>
-            <span class="language-text">FR</span>
-          </div>
-
-          <?php if (isset($_SESSION["prenom"])): ?>
-              <a href="espace.php" class="btn-identifier">
-                  Mon espace (<?= htmlspecialchars($_SESSION["prenom"]); ?>)
-              </a>
-          <?php else: ?>
-              <a href="connexion.php" class="btn-identifier">S'identifier</a>
-          <?php endif; ?>
-        </div>
       </div>
-    </div>
   </header>
 
   <!-- ✅ CONTENU PRODUIT -->
@@ -119,12 +131,10 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["add_to_cart"])) {
         <img src="images/somnyl.png" class="thumb" alt="Somnyl">
         <img src="images/gelules.png" class="thumb" alt="Gélules Somnyl">
         <img src="images/gelules2.png" class="thumb" alt="Gélules Somnyl 2">
-        <video class="thumb" controls src="videos/video1.mp4"></video>
-        <video class="thumb" controls src="videos/video2.mp4"></video>
       </div>
 
       <div class="main-img">
-        <img src="images/gelules.png" class="product-main" alt="Somnyl Produit">
+        <img src="images/somnyl.png" class="product-main" alt="Somnyl Produit">
       </div>
     </div>
 
@@ -156,7 +166,6 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["add_to_cart"])) {
         <button type="submit" name="add_to_cart" class="add">Ajouter au panier</button>
       </form>
 
-      <button class="fav">Ajouter aux favoris</button>
 
       <details class="dropdown">
         <summary>Care</summary>
@@ -229,6 +238,27 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["add_to_cart"])) {
       });
   });
   </script>
+<script>
+  // Images miniatures
+  const thumbs = document.querySelectorAll(".thumb");
+
+  // Image principale
+  const mainImage = document.querySelector(".product-main");
+
+  thumbs.forEach(thumb => {
+    thumb.addEventListener("click", () => {
+
+      // 1️⃣ Changer l’image principale
+      mainImage.src = thumb.src;
+
+      // 2️⃣ Enlever l'état actif de toutes les miniatures
+      thumbs.forEach(t => t.classList.remove("active"));
+
+      // 3️⃣ Ajouter l'état actif à la miniature cliquée
+      thumb.classList.add("active");
+    });
+  });
+</script>
 
   <!-- Footer -->
   <footer>

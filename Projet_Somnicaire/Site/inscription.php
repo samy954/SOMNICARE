@@ -16,11 +16,14 @@ $error = "";
 
 // === Traitement du formulaire ===
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
+
     $prenom = trim($_POST["prenom"]);
     $nom = trim($_POST["nom"]);
     $email = trim($_POST["email"]);
     $mot_de_passe = $_POST["mot_de_passe"];
     $confirm_mdp = $_POST["confirm_mdp"];
+    $role = $_POST["role"] ?? "client";
+    $cle_specialiste = $_POST["cle_specialiste"] ?? "";
 
     if (empty($prenom) || empty($nom) || empty($email) || empty($mot_de_passe) || empty($confirm_mdp)) {
         $error = "Tous les champs sont obligatoires.";
@@ -28,9 +31,12 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         $error = "Adresse e-mail invalide.";
     } elseif ($mot_de_passe !== $confirm_mdp) {
         $error = "Les mots de passe ne correspondent pas.";
+    } elseif ($role === "specialiste" && $cle_specialiste !== "8940") {
+        $error = "Clé d’accès spécialiste incorrecte.";
     } else {
-        // Vérifie si l'email existe déjà
-        $check = $conn->prepare("SELECT * FROM utilisateurs WHERE email = ?");
+
+        // Vérifier si l'email existe déjà
+        $check = $conn->prepare("SELECT id_utilisateur FROM utilisateurs WHERE email = ?");
         $check->bind_param("s", $email);
         $check->execute();
         $result = $check->get_result();
@@ -38,17 +44,39 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         if ($result->num_rows > 0) {
             $error = "Un compte avec cet e-mail existe déjà.";
         } else {
+
             $hash = password_hash($mot_de_passe, PASSWORD_DEFAULT);
-            $stmt = $conn->prepare("INSERT INTO utilisateurs (nom, prenom, email, mot_de_passe, role) VALUES (?, ?, ?, ?, 'client')");
-            $stmt->bind_param("ssss", $nom, $prenom, $email, $hash);
+
+            // Création utilisateur
+            $stmt = $conn->prepare("
+                INSERT INTO utilisateurs (nom, prenom, email, mot_de_passe, role)
+                VALUES (?, ?, ?, ?, ?)
+            ");
+            $stmt->bind_param("sssss", $nom, $prenom, $email, $hash, $role);
 
             if ($stmt->execute()) {
-                $success = "✅ Votre compte a été créé avec succès ! Vous pouvez maintenant vous connecter.";
+
+                // Si spécialiste → créer entrée dans la table specialistes
+                if ($role === "specialiste") {
+                    $idUtilisateur = $conn->insert_id;
+
+                    $stmtSpec = $conn->prepare("
+                        INSERT INTO specialistes (id_utilisateur, bio)
+                        VALUES (?, 'Nouveau spécialiste')
+                    ");
+                    $stmtSpec->bind_param("i", $idUtilisateur);
+                    $stmtSpec->execute();
+                    $stmtSpec->close();
+                }
+
+                $success = "✅ Votre compte a été créé avec succès. Vous pouvez vous connecter.";
             } else {
-                $error = "❌ Erreur lors de l'inscription. Veuillez réessayer.";
+                $error = "❌ Erreur lors de l'inscription.";
             }
+
             $stmt->close();
         }
+        $check->close();
     }
 }
 
@@ -65,18 +93,14 @@ $conn->close();
     <link rel="stylesheet" href="css/inscription.css">
 </head>
 <body>
-    <header>
+
+<header>
     <div class="container">
         <div class="header-content">
-
-            <!-- Logo à gauche -->
             <div class="logo">
-                <div class="logo-image">
-                    <img src="images/logo.png" alt="SomniCare">
-                </div>
+                <img src="images/logo.png" alt="SomniCare">
             </div>
 
-            <!-- Navigation centrale -->
             <nav class="main-nav">
                 <ul class="nav-links">
                     <li><a href="index.php">Accueil</a></li>
@@ -87,66 +111,81 @@ $conn->close();
                 </ul>
             </nav>
 
-            <!-- Côté droit - Langue et identification -->
             <div class="header-right">
-                <!-- Sélecteur de langue -->
-                <div class="language-selector">
-                    <i class="fas fa-globe language-icon"></i>
-                    <span class="language-text">FR</span>
-                </div>
-
-                <!-- Bouton s'identifier -->
-                <a href="connexion.html" class="btn-identifier">S'identifier</a>
+                <a href="connexion.php" class="btn-identifier">S'identifier</a>
             </div>
         </div>
     </div>
 </header>
 
+<section class="register-section">
+    <div class="form-container">
+        <h2>Créer un compte</h2>
 
-    <section class="register-section">
-        <div class="form-container">
-            <h2>Créer un compte</h2>
+        <?php if ($success): ?>
+            <div class="alert success"><?= $success; ?></div>
+        <?php elseif ($error): ?>
+            <div class="alert error"><?= $error; ?></div>
+        <?php endif; ?>
 
-            <?php if ($success): ?>
-                <div class="alert success"><?php echo $success; ?></div>
-            <?php elseif ($error): ?>
-                <div class="alert error"><?php echo $error; ?></div>
-            <?php endif; ?>
+        <form method="POST">
 
-            <form method="POST" action="">
-                <div class="row">
-                    <input type="text" name="prenom" placeholder="Prénom" required>
-                    <input type="text" name="nom" placeholder="Nom" required>
-                </div>
-
-                <input type="email" name="email" placeholder="Adresse e-mail" required>
-
-                <input type="password" name="mot_de_passe" placeholder="Mot de passe" required>
-                <input type="password" name="confirm_mdp" placeholder="Confirmer le mot de passe" required>
-
-                <label class="checkbox">
-                    <input type="checkbox" name="stay_connected"> Rester connecté
-                </label>
-
-                <button type="submit">S'inscrire</button>
-            </form>
-
-            <p class="login-text">Déjà un compte ? <a href="connexion.php">Connectez-vous</a></p>
-        </div>
-    </section>
-
-    <footer>
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-logo">SomniCare</div>
-                <div class="footer-description">
-                    Spécialistes du sommeil — accompagnement et solutions personnalisées.
-                </div>
+            <div class="row">
+                <input type="text" name="prenom" placeholder="Prénom" required>
+                <input type="text" name="nom" placeholder="Nom" required>
             </div>
-            <div class="footer-copyright">
-                © 2025 SomniCare — Tous droits réservés
+
+            <input type="email" name="email" placeholder="Adresse e-mail" required>
+
+            <input type="password" name="mot_de_passe" placeholder="Mot de passe" required>
+            <input type="password" name="confirm_mdp" placeholder="Confirmer le mot de passe" required>
+
+            <!-- Rôle -->
+            <input type="hidden" name="role" id="role" value="client">
+
+            <!-- Clé spécialiste -->
+            <div id="cle-specialiste" style="display:none;">
+                <input type="text" name="cle_specialiste" placeholder="Clé d’accès spécialiste">
+            </div>
+
+            <!-- Boutons choix -->
+            <div style="display:flex; gap:10px; margin-bottom:15px;">
+                <button type="button" onclick="setClient()">Client</button>
+                <button type="button" onclick="setSpecialiste()">Spécialiste</button>
+            </div>
+
+            <button type="submit">S'inscrire</button>
+        </form>
+
+        <p class="login-text">Déjà un compte ? <a href="connexion.php">Connectez-vous</a></p>
+    </div>
+</section>
+
+<script>
+function setClient() {
+    document.getElementById("role").value = "client";
+    document.getElementById("cle-specialiste").style.display = "none";
+}
+
+function setSpecialiste() {
+    document.getElementById("role").value = "specialiste";
+    document.getElementById("cle-specialiste").style.display = "block";
+}
+</script>
+
+<footer>
+    <div class="container">
+        <div class="footer-content">
+            <div class="footer-logo">SomniCare</div>
+            <div class="footer-description">
+                Spécialistes du sommeil — accompagnement et solutions personnalisées.
             </div>
         </div>
-    </footer>
+        <div class="footer-copyright">
+            © 2025 SomniCare — Tous droits réservés
+        </div>
+    </div>
+</footer>
+
 </body>
 </html>

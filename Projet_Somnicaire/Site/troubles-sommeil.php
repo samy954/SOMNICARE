@@ -14,46 +14,57 @@ session_start();
 <body>
     <!-- Bannière élégante -->
     <header>
-        <div class="container">
-            <div class="header-content">
-                <!-- Logo à gauche -->
-                <div class="logo">
-                    <div class="logo-image">
-                        <img src="images/logo.png" alt="SomniCare">
-                    </div>
-                </div>
+    <div class="container">
+        <div class="header-content">
 
-                <!-- Navigation centrale -->
-                <nav class="main-nav">
-                    <ul class="nav-links">
-                        <li><a href="index.php">Accueil</a></li>
-                        <li><a href="troubles-sommeil.php" class="active">Les troubles du sommeil</a></li>
-                        <li><a href="somnyl.php">Somnyl</a></li>
-                        <li><a href="methode.php">Méthode</a></li>
-                        <li><a href="contact.php">Contact</a></li>
-                    </ul>
-                </nav>
-
-                <!-- Côté droit - Langue et identification -->
-                <div class="header-right">
-                    <!-- Sélecteur de langue -->
-                    <div class="language-selector">
-                        <i class="fas fa-globe language-icon"></i>
-                        <span class="language-text">FR</span>
-                    </div>
-
-                    <!-- ✅ Bouton dynamique -->
-                    <?php if (isset($_SESSION["prenom"])): ?>
-                        <a href="espace.php" class="btn-identifier">
-                            Mon espace (<?php echo htmlspecialchars($_SESSION["prenom"]); ?>)
-                        </a>
-                    <?php else: ?>
-                        <a href="connexion.php" class="btn-identifier">S'identifier</a>
-                    <?php endif; ?>
+            <!-- Logo -->
+            <div class="logo">
+                <div class="logo-image">
+                    <img src="images/logo.png" alt="SomniCare">
                 </div>
             </div>
-        </div>
+
+            <!-- Navigation -->
+            <nav class="main-nav">
+                <ul class="nav-links">
+                    <li><a href="index.php">Accueil</a></li>
+                    <li><a href="troubles-sommeil.php">Les troubles du sommeil</a></li>
+                    <li><a href="somnyl.php">Somnyl</a></li>
+                    <li><a href="methode.php">Méthode</a></li>
+                    <li><a href="contact.php">Contact</a></li>
+                </ul>
+            </nav>
+
+            <!-- Côté droit -->
+            <div class="header-right">
+
+                <!-- Langue -->
+                <div class="language-selector">
+                    <i class="fas fa-globe language-icon"></i>
+                    <span class="language-text">FR</span>
+                </div>
+
+                <!-- Bouton dynamique -->
+                <?php if (isset($_SESSION['id_utilisateur'], $_SESSION['role'])): ?>
+
+                    <?php if ($_SESSION['role'] === 'specialiste'): ?>
+                        <a href="espace_medecin.php" class="btn-identifier">
+                            Espace médecin (<?= htmlspecialchars($_SESSION['prenom']) ?>)
+                        </a>
+                    <?php else: ?>
+                        <a href="espace.php" class="btn-identifier">
+                            Mon espace (<?= htmlspecialchars($_SESSION['prenom']) ?>)
+                        </a>
+                    <?php endif; ?>
+
+                <?php else: ?>
+                    <a href="connexion.php" class="btn-identifier">S'identifier</a>
+                <?php endif; ?>
+
+                </div>
+            </div>
     </header>
+
     
     <!-- Section titre -->
     <section class="page-header">
@@ -96,7 +107,7 @@ session_start();
                     </div>
                     
                     <div class="trouble-action">
-                        <a href="#" class="btn btn-primary">Comprendre les troubles</a>
+                        <a href="rapport.php" class="btn">Comprendre les troubles</a>
                     </div>
                 </div>
             </div>
@@ -132,7 +143,7 @@ session_start();
                     </div>
                     
                     <div class="trouble-action">
-                        <a href="#" class="btn btn-primary">Comprendre les troubles</a>
+                        <a href="rapport.php" class="btn">Comprendre les troubles</a>
                     </div>
                 </div>
             </div>
@@ -168,7 +179,7 @@ session_start();
                     </div>
                     
                     <div class="trouble-action">
-                        <a href="#" class="btn btn-primary">Comprendre les troubles</a>
+                        <a href="rapport.php" class="btn">Comprendre les troubles</a>
                     </div>
                 </div>
             </div>

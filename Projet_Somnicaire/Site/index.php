@@ -12,47 +12,57 @@
 <body>
     <!-- Bannière élégante -->
     <header>
-        <div class="container">
-            <div class="header-content">
+    <div class="container">
+        <div class="header-content">
 
-                <!-- Logo à gauche -->
-                <div class="logo">
-                    <div class="logo-image">
-                        <img src="images/logo.png" alt="SomniCare">
-                    </div>
-                </div>
-
-                <!-- Navigation centrale -->
-                <nav class="main-nav">
-                    <ul class="nav-links">
-                        <li><a href="index.php" class="active">Accueil</a></li>
-                        <li><a href="troubles-sommeil.php">Les troubles du sommeil</a></li>
-                        <li><a href="somnyl.php">Somnyl</a></li>
-                        <li><a href="methode.php">Méthode</a></li>
-                        <li><a href="contact.php">Contact</a></li>
-                    </ul>
-                </nav>
-
-                <!-- Côté droit - Langue et identification -->
-                <div class="header-right">
-                    <!-- Sélecteur de langue -->
-                    <div class="language-selector">
-                        <i class="fas fa-globe language-icon"></i>
-                        <span class="language-text">FR</span>
-                    </div>
-
-                    <!-- Bouton dynamique -->
-                    <?php if (isset($_SESSION["prenom"])): ?>
-                        <a href="espace.php" class="btn-identifier">
-                            Mon espace (<?php echo htmlspecialchars($_SESSION["prenom"]); ?>)
-                        </a>
-                    <?php else: ?>
-                        <a href="connexion.php" class="btn-identifier">S'identifier</a>
-                    <?php endif; ?>
+            <!-- Logo -->
+            <div class="logo">
+                <div class="logo-image">
+                    <img src="images/logo.png" alt="SomniCare">
                 </div>
             </div>
+
+            <!-- Navigation -->
+            <nav class="main-nav">
+                <ul class="nav-links">
+                    <li><a href="index.php">Accueil</a></li>
+                    <li><a href="troubles-sommeil.php">Les troubles du sommeil</a></li>
+                    <li><a href="somnyl.php">Somnyl</a></li>
+                    <li><a href="methode.php">Méthode</a></li>
+                    <li><a href="contact.php">Contact</a></li>
+                </ul>
+            </nav>
+
+            <!-- Côté droit -->
+            <div class="header-right">
+
+                <!-- Langue -->
+                <div class="language-selector">
+                    <i class="fas fa-globe language-icon"></i>
+                    <span class="language-text">FR</span>
+                </div>
+
+                <!-- Bouton dynamique -->
+                <?php if (isset($_SESSION['id_utilisateur'], $_SESSION['role'])): ?>
+
+                    <?php if ($_SESSION['role'] === 'specialiste'): ?>
+                        <a href="espace_medecin.php" class="btn-identifier">
+                            Espace médecin (<?= htmlspecialchars($_SESSION['prenom']) ?>)
+                        </a>
+                    <?php else: ?>
+                        <a href="espace.php" class="btn-identifier">
+                            Mon espace (<?= htmlspecialchars($_SESSION['prenom']) ?>)
+                        </a>
+                    <?php endif; ?>
+
+                <?php else: ?>
+                    <a href="connexion.php" class="btn-identifier">S'identifier</a>
+                <?php endif; ?>
+
+            </div>
         </div>
-    </header>
+    </div>
+</header>
     
     <section class="hero">
         <div class="container">
@@ -98,8 +108,8 @@
                     <p>Évaluation, diagnostic et protocole personnalisé par nos médecins du sommeil.</p>
                 </div>
                 <div class="service-card">
-                    <h3>Téléconsultations & suivi</h3>
-                    <p>Sessions vidéo, exercices guidés et suivi chiffré des progrès.</p>
+                    <h3>Somnyl : une solution naturelle pour mieux dormir</h3>
+                    <p>vDécouvrez Somnyl, notre gamme de solutions naturelles conçues pour favoriser l’endormissement, améliorer la récupération et accompagner votre routine sommeil au quotidien, en complément de votre suivi SomniCare.</p>
                 </div>
             </div>
         </div>
@@ -144,7 +154,7 @@
             
             <div class="cta-buttons">
                 <a href="reserver/etape1_motif.php" class="btn btn-primary">Réserver</a>
-                <a href="methode.html" class="btn btn-secondary">En savoir plus</a>
+                <a href="methode.php" class="btn btn-secondary">En savoir plus</a>
             </div>
         </div>
     </section>
