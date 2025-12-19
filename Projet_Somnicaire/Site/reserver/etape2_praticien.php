@@ -3,19 +3,15 @@ session_start();
 require_once("../config.php");
 $_SESSION["etape"] = 2;
 
-// 🔒 Vérifie qu’un motif a bien été choisi avant cette étape
 if (!isset($_SESSION["motif"])) {
     header("Location: etape1_motif.php");
     exit;
 }
 
-// 🔒 Vérifie que l'utilisateur est connecté
 if (!isset($_SESSION["id_utilisateur"])) {
-    // pour les tests uniquement
     $_SESSION["id_utilisateur"] = 1;
 }
 
-// ✅ Si un praticien est choisi (formulaire envoyé)
 if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["choisir"])) {
     $_SESSION["id_specialiste"] = intval($_POST["id_specialiste"]);
     $_SESSION["nom_specialiste"] = htmlspecialchars($_POST["nom_specialiste"]);
@@ -37,7 +33,6 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["choisir"])) {
 </head>
 <body>
 
-<!-- ====== HEADER ====== -->
 <header>
   <div class="container">
     <div class="header-content">
@@ -69,7 +64,6 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["choisir"])) {
   </div>
 </header>
 
-<!-- ====== TITRE ====== -->
 <section class="page-header">
   <div class="container">
     <h1>Choisissez votre praticien</h1>
@@ -77,17 +71,13 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["choisir"])) {
   </div>
 </section>
 
-<!-- ====== CONTENU PRINCIPAL ====== -->
 <section class="map-section">
   <div class="container grid">
-    <!-- Liste praticiens défilante -->
     <div class="doctor-list" id="doctorList"></div>
-    <!-- Carte -->
     <div id="map"></div>
   </div>
 </section>
 
-<!-- ====== FOOTER ====== -->
 <footer>
   <div class="container">
     <div class="footer-content">
@@ -103,7 +93,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["choisir"])) {
 </footer>
 
 <script>
-// ====== RÉCUPÉRATION DES PRATICIENS ======
+// RÉCUPÉRATION DES PRATICIENS
 const praticiens = <?php
   $query = "
     SELECT s.id_specialiste, u.nom, u.prenom, u.email, 
@@ -120,13 +110,13 @@ const praticiens = <?php
   echo json_encode($data);
 ?>;
 
-// ====== INITIALISATION DE LA CARTE ======
+//INITIALISATION DE LA CARTE 
 const map = L.map('map').setView([46.603354, 1.888334], 6);
 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
   attribution: '© OpenStreetMap contributors'
 }).addTo(map);
 
-// ====== AJOUT DES MARQUEURS ======
+//AJOUT DES MARQUEURS
 praticiens.forEach(p => {
   if (p.latitude && p.longitude) {
     const marker = L.marker([p.latitude, p.longitude]).addTo(map);
@@ -138,7 +128,7 @@ praticiens.forEach(p => {
   }
 });
 
-// ====== GÉNÉRATION DE LA LISTE ======
+//GÉNÉRATION DE LA LISTE
 const listContainer = document.getElementById("doctorList");
 praticiens.forEach(p => {
   const card = document.createElement("div");

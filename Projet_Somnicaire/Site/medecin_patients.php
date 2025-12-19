@@ -45,22 +45,50 @@ if (!$specialiste) {
 $idSpecialiste = (int) $specialiste['id_specialiste'];
 
 // =========================
-// LISTE DES PATIENTS
+// RECHERCHE PATIENT
 // =========================
-$stmt = $conn->prepare("
-    SELECT 
-        u.id_utilisateur,
-        u.prenom,
-        u.nom,
-        COUNT(r.id_rdv) AS nb_consultations,
-        MAX(r.date_rdv) AS dernier_rdv
-    FROM rendez_vous r
-    JOIN utilisateurs u ON r.id_client = u.id_utilisateur
-    WHERE r.id_specialiste = ?
-    GROUP BY u.id_utilisateur, u.prenom, u.nom
-    ORDER BY dernier_rdv DESC
-");
-$stmt->bind_param("i", $idSpecialiste);
+$search = trim($_GET['q'] ?? '');
+$searchLike = '%' . $search . '%';
+
+// =========================
+// LISTE DES PATIENTS (AVEC RECHERCHE)
+// =========================
+if ($search !== '') {
+
+    $stmt = $conn->prepare("
+        SELECT 
+            u.id_utilisateur,
+            u.prenom,
+            u.nom,
+            COUNT(r.id_rdv) AS nb_consultations,
+            MAX(r.date_rdv) AS dernier_rdv
+        FROM rendez_vous r
+        JOIN utilisateurs u ON r.id_client = u.id_utilisateur
+        WHERE r.id_specialiste = ?
+        AND (u.nom LIKE ? OR u.prenom LIKE ?)
+        GROUP BY u.id_utilisateur, u.prenom, u.nom
+        ORDER BY dernier_rdv DESC
+    ");
+    $stmt->bind_param("iss", $idSpecialiste, $searchLike, $searchLike);
+
+} else {
+
+    $stmt = $conn->prepare("
+        SELECT 
+            u.id_utilisateur,
+            u.prenom,
+            u.nom,
+            COUNT(r.id_rdv) AS nb_consultations,
+            MAX(r.date_rdv) AS dernier_rdv
+        FROM rendez_vous r
+        JOIN utilisateurs u ON r.id_client = u.id_utilisateur
+        WHERE r.id_specialiste = ?
+        GROUP BY u.id_utilisateur, u.prenom, u.nom
+        ORDER BY dernier_rdv DESC
+    ");
+    $stmt->bind_param("i", $idSpecialiste);
+}
+
 $stmt->execute();
 $patients = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
 ?>
@@ -75,48 +103,75 @@ $patients = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
+
+<!-- NAVBAR -->
 <header>
-        <div class="container">
-            <div class="header-content">
-                <div class="logo">
-                    <div class="logo-image">
-                        <img src="images/logo.png" alt="SomniCare">
-                    </div>
-                </div>
+    <div class="container">
+        <div class="header-content">
 
-                <nav class="main-nav">
-                    <ul class="nav-links">
-                        <li><a href="index.php">Accueil</a></li>
-                        <li><a href="troubles-sommeil.php">Les troubles du sommeil</a></li>
-                        <li><a href="somnyl.php">Somnyl</a></li>
-                        <li><a href="methode.php">Méthode</a></li>
-                        <li><a href="contact.php">Contact</a></li>
-                    </ul>
-                </nav>
-
-                <div class="header-right">
-                    <a href="panier.php" class="btn-identifier"> Panier</a>
-                    <a href="logout.php" class="btn-identifier"> Déconnexion</a>
+            <div class="logo">
+                <div class="logo-image">
+                    <img src="images/logo.png" alt="SomniCare">
                 </div>
             </div>
+
+            <nav class="main-nav">
+                <ul class="nav-links">
+                    <li><a href="index.php">Accueil</a></li>
+                    <li><a href="troubles-sommeil.php">Les troubles du sommeil</a></li>
+                    <li><a href="somnyl.php">Somnyl</a></li>
+                    <li><a href="methode.php">Méthode</a></li>
+                    <li><a href="contact.php">Contact</a></li>
+                </ul>
+            </nav>
+
+            <div class="header-right">
+                <a href="espace_medecin.php" class="btn-identifier">Mon espace</a>
+                <a href="logout.php" class="btn-identifier">Déconnexion</a>
+            </div>
         </div>
+    </div>
 </header>
+
 <header class="page-header">
     <h1>Mes patients</h1>
     <p>Patients suivis dans votre pratique SomniCare</p>
 </header>
 
 <main class="dashboard">
+
+<!-- RETOUR -->
 <div style="margin-bottom: 25px;">
     <a href="espace_medecin.php" class="btn-table">
         ← Retour à mon espace médecin
     </a>
 </div>
+
+<!-- 🔍 BARRE DE RECHERCHE -->
+<section class="section">
+    <form method="GET" style="display:flex; gap:15px; align-items:center;">
+        <input
+            type="text"
+            name="q"
+            placeholder="Rechercher un patient (nom ou prénom)"
+            value="<?= htmlspecialchars($search) ?>"
+            style="flex:1; padding:12px; border-radius:8px; border:1px solid #ccc;"
+        >
+        <button class="btn-table" type="submit">
+            🔍 Rechercher
+        </button>
+        <?php if ($search !== ''): ?>
+            <a href="medecin_patients.php" class="btn-table danger">✖ Reset</a>
+        <?php endif; ?>
+    </form>
+</section>
+
+<!-- TABLE PATIENTS -->
 <section class="section">
     <h2>Liste des patients</h2>
 
     <?php if (empty($patients)): ?>
-        <p>Aucun patient suivi pour le moment.</p>
+        <p>Aucun patient trouvé.</p>
     <?php else: ?>
 
     <table>
@@ -141,7 +196,7 @@ $patients = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
                 <td>
                     <a href="medecin_dossier.php?id=<?= (int) $p['id_utilisateur']; ?>"
                        class="btn-table">
-                       Voir dossier
+                        Voir dossier
                     </a>
                 </td>
             </tr>

@@ -97,30 +97,56 @@ $rendezVous = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
 </head>
 <body>
 <header>
-        <div class="container">
-            <div class="header-content">
-                <div class="logo">
-                    <div class="logo-image">
-                        <img src="images/logo.png" alt="SomniCare">
-                    </div>
-                </div>
+    <div class="container">
+        <div class="header-content">
 
-                <nav class="main-nav">
-                    <ul class="nav-links">
-                        <li><a href="index.php">Accueil</a></li>
-                        <li><a href="troubles-sommeil.php">Les troubles du sommeil</a></li>
-                        <li><a href="somnyl.php">Somnyl</a></li>
-                        <li><a href="methode.php">Méthode</a></li>
-                        <li><a href="contact.php">Contact</a></li>
-                    </ul>
-                </nav>
-
-                <div class="header-right">
-                    <a href="panier.php" class="btn-identifier"> Panier</a>
-                    <a href="logout.php" class="btn-identifier"> Déconnexion</a>
+            <!-- Logo -->
+            <div class="logo">
+                <div class="logo-image">
+                    <img src="images/logo.png" alt="SomniCare">
                 </div>
             </div>
+
+            <!-- Navigation -->
+            <nav class="main-nav">
+                <ul class="nav-links">
+                    <li><a href="index.php">Accueil</a></li>
+                    <li><a href="troubles-sommeil.php">Les troubles du sommeil</a></li>
+                    <li><a href="somnyl.php">Somnyl</a></li>
+                    <li><a href="methode.php">Méthode</a></li>
+                    <li><a href="contact.php">Contact</a></li>
+                </ul>
+            </nav>
+
+            <!-- Côté droit -->
+            <div class="header-right">
+
+                <!-- Langue -->
+                <div class="language-selector">
+                    <i class="fas fa-globe language-icon"></i>
+                    <span class="language-text">FR</span>
+                </div>
+
+                <!-- Bouton dynamique -->
+                <?php if (isset($_SESSION['id_utilisateur'], $_SESSION['role'])): ?>
+
+                    <?php if ($_SESSION['role'] === 'specialiste'): ?>
+                        <a href="espace_medecin.php" class="btn-identifier">
+                            Espace médecin (<?= htmlspecialchars($_SESSION['prenom']) ?>)
+                        </a>
+                    <?php else: ?>
+                        <a href="espace.php" class="btn-identifier">
+                            Mon espace (<?= htmlspecialchars($_SESSION['prenom']) ?>)
+                        </a>
+                    <?php endif; ?>
+
+                <?php else: ?>
+                    <a href="connexion.php" class="btn-identifier">S'identifier</a>
+                <?php endif; ?>
+
+            </div>
         </div>
+    </div>
 </header>
 <header class="page-header">
     <h1>Mes rendez-vous</h1>

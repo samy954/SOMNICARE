@@ -2,7 +2,7 @@
 session_start();
 require_once("../config.php");
 
-// === Sécurité : accès direct interdit sans praticien ===
+//Sécurité : accès direct interdit sans praticien
 if (!isset($_SESSION["id_specialiste"]) || !isset($_SESSION["nom_specialiste"])) {
     header("Location: etape2_praticien.php");
     exit;
@@ -12,18 +12,18 @@ $id_specialiste = $_SESSION["id_specialiste"];
 $nom_specialiste = $_SESSION["nom_specialiste"];
 $error = "";
 
-// === Créneaux horaires (45 min) ===
+// Créneaux horaires
 $creneaux = [
     "08:00", "08:45", "09:30", "10:15", "11:00", "11:45", "12:30",
     "13:15", "14:00", "14:45", "15:30", "16:15", "17:00", "17:45",
     "18:30", "19:15"
 ];
 
-// === Date sélectionnée (par défaut : aujourd’hui) ===
+
 $dateSelectionnee = $_POST["date_rdv"] ?? date("Y-m-d");
 $creneauxIndisponibles = [];
 
-// === Étape 1 : Vérification des créneaux disponibles ===
+//Vérification des créneaux disponibles 
 if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["check_date"])) {
     $stmt = $conn->prepare("SELECT heure_rdv FROM rendez_vous WHERE id_specialiste = ? AND date_rdv = ?");
     $stmt->bind_param("is", $id_specialiste, $dateSelectionnee);
@@ -37,7 +37,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["check_date"])) {
     $stmt->close();
 }
 
-// === Étape 2 : Validation de la sélection ===
+//  Validation de la sélection 
 if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["valider_rdv"])) {
     $date_rdv = $_POST["date_rdv"] ?? "";
     $heure_rdv = $_POST["heure_rdv"] ?? "";

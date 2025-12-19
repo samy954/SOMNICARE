@@ -91,16 +91,22 @@ $conn->close();
     <title>S'inscrire - SomniCare</title>
     <link rel="stylesheet" href="css/base.css">
     <link rel="stylesheet" href="css/inscription.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
 
 <header>
     <div class="container">
         <div class="header-content">
+
+            <!-- Logo -->
             <div class="logo">
-                <img src="images/logo.png" alt="SomniCare">
+                <div class="logo-image">
+                    <img src="images/logo.png" alt="SomniCare">
+                </div>
             </div>
 
+            <!-- Navigation -->
             <nav class="main-nav">
                 <ul class="nav-links">
                     <li><a href="index.php">Accueil</a></li>
@@ -111,8 +117,32 @@ $conn->close();
                 </ul>
             </nav>
 
+            <!-- Côté droit -->
             <div class="header-right">
-                <a href="connexion.php" class="btn-identifier">S'identifier</a>
+
+                <!-- Langue -->
+                <div class="language-selector">
+                    <i class="fas fa-globe language-icon"></i>
+                    <span class="language-text">FR</span>
+                </div>
+
+                <!-- Bouton dynamique -->
+                <?php if (isset($_SESSION['id_utilisateur'], $_SESSION['role'])): ?>
+
+                    <?php if ($_SESSION['role'] === 'specialiste'): ?>
+                        <a href="espace_medecin.php" class="btn-identifier">
+                            Espace médecin (<?= htmlspecialchars($_SESSION['prenom']) ?>)
+                        </a>
+                    <?php else: ?>
+                        <a href="espace.php" class="btn-identifier">
+                            Mon espace (<?= htmlspecialchars($_SESSION['prenom']) ?>)
+                        </a>
+                    <?php endif; ?>
+
+                <?php else: ?>
+                    <a href="connexion.php" class="btn-identifier">S'identifier</a>
+                <?php endif; ?>
+
             </div>
         </div>
     </div>

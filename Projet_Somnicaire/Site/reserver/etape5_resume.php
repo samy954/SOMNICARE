@@ -155,7 +155,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["confirmer_rdv"])) {
     </div>
 </section>
 
-<!-- === FOOTER === -->
+<!--FOOTER === -->
 <footer>
     <div class="container">
         <div class="footer-content">

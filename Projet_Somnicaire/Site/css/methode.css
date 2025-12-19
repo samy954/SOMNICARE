@@ -1,6 +1,4 @@
-/* =========================
-   VARIABLES MÉTHODE (VARIATIONS PRUNE)
-========================= */
+
 :root {
     --method-dark: #42095C;
     --method-dark-soft: #5a1a76;
@@ -17,9 +15,6 @@
     --shadow-hover: 0 20px 50px -12px rgba(66, 9, 92, 0.25);
 }
 
-/* =========================
-   SECTION MÉTHODE – INTRO
-========================= */
 .method-simple {
     padding: 100px 0;
     background: linear-gradient(
@@ -57,9 +52,6 @@
     line-height: 1.7;
 }
 
-/* =========================
-   STATS MÉTHODE (VERTICAL)
-========================= */
 .method-stats-simple {
     display: flex;
     flex-direction: column;
@@ -96,9 +88,6 @@
     margin: 0 auto;
 }
 
-/* =========================
-   SECTION TCC-I
-========================= */
 .tcci-section {
     padding: 100px 0;
     background: linear-gradient(
@@ -114,9 +103,6 @@
     gap: 40px;
 }
 
-/* =========================
-   CARTE TCC-I
-========================= */
 .tcci-card {
     background: white;
     padding: 40px;
@@ -132,7 +118,6 @@
     border-color: rgba(246, 197, 217, 0.6);
 }
 
-/* Titres TCC */
 .tcci-card h3 {
     font-size: 24px;
     font-weight: 700;
@@ -140,21 +125,16 @@
     margin-bottom: 16px;
 }
 
-/* Texte */
 .tcci-card p {
     color: var(--text-main);
     line-height: 1.7;
     font-size: 16px;
 }
 
-/* Carte pleine largeur */
 .full-width {
     grid-column: span 2;
 }
 
-/* =========================
-   ÉLÉMENTS TCC-I
-========================= */
 .tcci-elements {
     display: flex;
     flex-wrap: wrap;
@@ -177,9 +157,6 @@
     background: rgba(246, 197, 217, 0.6);
 }
 
-/* =========================
-   MICRO-ANIMATION DOUCE
-========================= */
 @media (prefers-reduced-motion: no-preference) {
     .method-simple,
     .tcci-section {
@@ -198,9 +175,6 @@
     }
 }
 
-/* =========================
-   RESPONSIVE
-========================= */
 @media (max-width: 900px) {
     .tcci-grid {
         grid-template-columns: 1fr;

@@ -269,3 +269,162 @@ footer {
   color: rgba(255,255,255,0.6);
   font-size: 13px;
 }
+/* =========================
+   JOURNAL DE SOMMEIL – FORMULAIRE
+========================= */
+
+.sommeil-section {
+    padding: 80px 0;
+    background: #fdfbfd;
+}
+
+.sommeil-card {
+    max-width: 700px;
+    margin: 0 auto;
+    background: #ffffff;
+    border-radius: 20px;
+    padding: 40px;
+    box-shadow: 0 15px 40px rgba(66, 9, 92, 0.12);
+    border: 1px solid rgba(246, 197, 217, 0.4);
+}
+
+/* TITRE */
+.sommeil-card h2 {
+    font-size: 32px;
+    font-weight: 800;
+    color: #42095C;
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+.sommeil-card p.subtitle {
+    text-align: center;
+    font-size: 16px;
+    color: #7f8c8d;
+    margin-bottom: 35px;
+}
+
+/* GROUPES */
+.form-group {
+    margin-bottom: 25px;
+}
+
+.form-group label {
+    display: block;
+    font-weight: 600;
+    font-size: 14px;
+    margin-bottom: 8px;
+    color: #42095C;
+}
+
+/* INPUTS */
+.form-group input,
+.form-group select,
+.form-group textarea {
+    width: 100%;
+    padding: 14px 16px;
+    border-radius: 10px;
+    border: 1px solid #e6d6e8;
+    font-size: 15px;
+    font-family: inherit;
+    color: #333;
+    background: #fff;
+    transition: all 0.25s ease;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+    outline: none;
+    border-color: #b84a7e;
+    box-shadow: 0 0 0 3px rgba(246, 197, 217, 0.5);
+}
+
+/* 2 COLONNES */
+.form-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+}
+
+/* QUALITÉ SOMMEIL */
+.select-quality {
+    background: linear-gradient(135deg, #fcebf2, #ffffff);
+}
+
+/* TEXTAREA */
+.form-group textarea {
+    resize: vertical;
+    min-height: 100px;
+}
+
+/* BOUTON */
+.btn-sommeil {
+    width: 100%;
+    margin-top: 20px;
+    padding: 16px;
+    border-radius: 50px;
+    border: none;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    background: linear-gradient(135deg, #42095C, #681A85);
+    color: #ffffff;
+    transition: all 0.3s ease;
+    box-shadow: 0 6px 20px rgba(66, 9, 92, 0.35);
+}
+
+.btn-sommeil:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 30px rgba(66, 9, 92, 0.45);
+}
+
+/* INFO NOTE */
+.form-note {
+    font-size: 13px;
+    color: #8898aa;
+    margin-top: 15px;
+    text-align: center;
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+@media (max-width: 768px) {
+    .sommeil-card {
+        padding: 30px 20px;
+    }
+
+    .form-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .sommeil-card h2 {
+        font-size: 26px;
+    }
+}
+.charts {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 30px;
+    margin-bottom: 40px;
+}
+
+.chart-box {
+    max-width: 500px;      /* largeur max */
+    height: 260px;         /* hauteur fixe */
+    margin: auto;
+}
+.btn-primary {
+    display: inline-block;
+    padding: 12px 20px;
+    background-color: #42095C;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 6px;
+    font-weight: 600;
+}
+
+.btn-primary:hover {
+    background-color: #5a0c7d;
+}

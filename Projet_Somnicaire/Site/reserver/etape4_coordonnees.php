@@ -2,7 +2,7 @@
 session_start();
 require_once("../config.php");
 
-// === Vérifie l'étape précédente ===
+// Vérifie l'étape précédente
 if (!isset($_SESSION["date_rdv"]) || !isset($_SESSION["heure_rdv"]) || !isset($_SESSION["mode"])) {
     header("Location: etape3_date_heure.php");
     exit;
@@ -10,7 +10,7 @@ if (!isset($_SESSION["date_rdv"]) || !isset($_SESSION["heure_rdv"]) || !isset($_
 
 $error = "";
 
-// === Si le formulaire est soumis ===
+// Si le formulaire est soumis
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
     // Nettoyage basique
     $prenom = htmlspecialchars(trim($_POST["prenom"] ?? ""));
@@ -58,7 +58,7 @@ $ancien = $_SESSION["coordonnees"] ?? [];
 </head>
 <body>
 
-<!-- === HEADER GLOBAL === -->
+<!--HEADER GLOBAL-->
 <header>
     <div class="container">
         <div class="header-content">
@@ -90,7 +90,7 @@ $ancien = $_SESSION["coordonnees"] ?? [];
     </div>
 </header>
 
-<!-- === TITRE === -->
+<!--TITRE-->
 <section class="page-header">
     <div class="container">
         <h1>Dites-nous en plus</h1>
@@ -98,7 +98,7 @@ $ancien = $_SESSION["coordonnees"] ?? [];
     </div>
 </section>
 
-<!-- === FORMULAIRE === -->
+<!-- FORMULAIRE -->
 <section class="form-section">
     <div class="container form-container">
 
@@ -124,7 +124,7 @@ $ancien = $_SESSION["coordonnees"] ?? [];
             <textarea name="notes" rows="4" placeholder="Notes pour le praticien (symptômes, traitements en cours…)"><?= $ancien['notes'] ?? '' ?></textarea>
 
             <div class="info-box">
-                <p>🔒 Vos données sont chiffrées et ne sont accessibles qu’à votre praticien SomniCare.</p>
+                <p> Vos données sont chiffrées et ne sont accessibles qu’à votre praticien SomniCare.</p>
             </div>
 
             <div class="buttons">
@@ -135,7 +135,7 @@ $ancien = $_SESSION["coordonnees"] ?? [];
     </div>
 </section>
 
-<!-- === FOOTER === -->
+<!-- FOOTER -->
 <footer>
     <div class="container">
         <div class="footer-content">
