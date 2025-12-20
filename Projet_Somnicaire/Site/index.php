@@ -48,13 +48,13 @@
                     <?php if ($_SESSION['role'] === 'specialiste'): ?>
                         <a href="espace_medecin.php" class="btn-identifier">
                             Espace médecin (<?= htmlspecialchars($_SESSION['prenom']) ?>)
-                        </a>
+                        </a> 
                     <?php else: ?>
                         <a href="espace.php" class="btn-identifier">
                             Mon espace (<?= htmlspecialchars($_SESSION['prenom']) ?>)
                         </a>
                     <?php endif; ?>
-
+                        <a href="logout.php" class="btn-logout">Se déconnecter</a>
                 <?php else: ?>
                     <a href="connexion.php" class="btn-identifier">S'identifier</a>
                 <?php endif; ?>

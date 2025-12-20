@@ -1,20 +1,13 @@
 <?php
-// =========================
-// DEBUG (à enlever en prod)
-// =========================
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
 
-// =========================
+
 // SESSION & DB
-// =========================
-session_start();
-require_once "config.php"; // crée $conn (mysqli)
 
-// =========================
+session_start();
+require_once "config.php"; 
+
 // SÉCURITÉ : MÉDECIN UNIQUEMENT
-// =========================
+
 if (
     !isset($_SESSION['id_utilisateur'], $_SESSION['role']) ||
     $_SESSION['role'] !== 'specialiste'
@@ -25,9 +18,9 @@ if (
 
 $idUtilisateur = (int) $_SESSION['id_utilisateur'];
 
-// =========================
+
 // RÉCUPÉRER ID SPECIALISTE
-// =========================
+
 $stmt = $conn->prepare("
     SELECT id_specialiste
     FROM specialistes
@@ -44,15 +37,15 @@ if (!$specialiste) {
 
 $idSpecialiste = (int) $specialiste['id_specialiste'];
 
-// =========================
+
 // RECHERCHE PATIENT
-// =========================
+
 $search = trim($_GET['q'] ?? '');
 $searchLike = '%' . $search . '%';
 
-// =========================
+
 // LISTE DES PATIENTS (AVEC RECHERCHE)
-// =========================
+
 if ($search !== '') {
 
     $stmt = $conn->prepare("
@@ -109,12 +102,14 @@ $patients = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
     <div class="container">
         <div class="header-content">
 
+            <!-- Logo -->
             <div class="logo">
                 <div class="logo-image">
                     <img src="images/logo.png" alt="SomniCare">
                 </div>
             </div>
 
+            <!-- Navigation -->
             <nav class="main-nav">
                 <ul class="nav-links">
                     <li><a href="index.php">Accueil</a></li>
@@ -125,9 +120,33 @@ $patients = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
                 </ul>
             </nav>
 
+            <!-- Côté droit -->
             <div class="header-right">
-                <a href="espace_medecin.php" class="btn-identifier">Mon espace</a>
-                <a href="logout.php" class="btn-identifier">Déconnexion</a>
+
+                <!-- Langue -->
+                <div class="language-selector">
+                    <i class="fas fa-globe language-icon"></i>
+                    <span class="language-text">FR</span>
+                </div>
+
+                <!-- Bouton dynamique -->
+                <?php if (isset($_SESSION['id_utilisateur'], $_SESSION['role'])): ?>
+
+                    <?php if ($_SESSION['role'] === 'specialiste'): ?>
+                        <a href="espace_medecin.php" class="btn-identifier">
+                            Espace médecin (<?= htmlspecialchars($_SESSION['prenom']) ?>)
+                        </a>
+                    <?php else: ?>
+                        <a href="espace.php" class="btn-identifier">
+                            Mon espace (<?= htmlspecialchars($_SESSION['prenom']) ?>)
+                        </a>
+                    <?php endif; ?>
+                    <a href="logout.php" class="btn-logout">Se déconnecter</a>
+
+                <?php else: ?>
+                    <a href="connexion.php" class="btn-identifier">S'identifier</a>
+                <?php endif; ?>
+
             </div>
         </div>
     </div>

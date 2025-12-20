@@ -1,20 +1,9 @@
 <?php
-// =========================
-// DEBUG (à enlever en prod)
-// =========================
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
 
-// =========================
-// SESSION & DB
-// =========================
 session_start();
 require_once "config.php"; // crée $conn (mysqli)
 
-// =========================
-// SÉCURITÉ : MÉDECIN UNIQUEMENT
-// =========================
+
 if (
     !isset($_SESSION['id_utilisateur'], $_SESSION['role']) ||
     $_SESSION['role'] !== 'specialiste'
@@ -25,18 +14,13 @@ if (
 
 $idUtilisateur = (int) $_SESSION['id_utilisateur'];
 
-// =========================
-// ID PATIENT (URL)
-// =========================
+
 if (!isset($_GET['id'])) {
     header("Location: medecin_patients.php");
     exit;
 }
 $idPatient = (int) $_GET['id'];
 
-// =========================
-// RÉCUPÉRER ID SPECIALISTE
-// =========================
 $stmt = $conn->prepare("
     SELECT id_specialiste
     FROM specialistes
@@ -52,9 +36,7 @@ if (!$specialiste) {
 }
 $idSpecialiste = (int) $specialiste['id_specialiste'];
 
-// =========================
-// VÉRIFIER LE LIEN PATIENT / MÉDECIN
-// =========================
+
 $stmt = $conn->prepare("
     SELECT COUNT(*) AS total
     FROM rendez_vous
@@ -69,9 +51,6 @@ if ($check['total'] == 0) {
     die("Accès interdit à ce dossier patient.");
 }
 
-// =========================
-// AJOUT NOTE MÉDICALE
-// =========================
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['note'])) {
     $note = trim($_POST['note']);
 
@@ -88,9 +67,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['note'])) {
     exit;
 }
 
-// =========================
-// INFOS PATIENT
-// =========================
 $stmt = $conn->prepare("
     SELECT prenom, nom, email, date_creation
     FROM utilisateurs
@@ -100,9 +76,6 @@ $stmt->bind_param("i", $idPatient);
 $stmt->execute();
 $patient = $stmt->get_result()->fetch_assoc();
 
-// =========================
-// HISTORIQUE DES RDV
-// =========================
 $stmt = $conn->prepare("
     SELECT date_rdv, heure_rdv, statut, note
     FROM rendez_vous
@@ -114,9 +87,6 @@ $stmt->bind_param("ii", $idSpecialiste, $idPatient);
 $stmt->execute();
 $historique = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
 
-// =========================
-// NOTES MÉDICALES
-// =========================
 $stmt = $conn->prepare("
     SELECT contenu, date_creation
     FROM notes_medicales
@@ -140,30 +110,57 @@ $notes = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
 </head>
 <body>
 <header>
-        <div class="container">
-            <div class="header-content">
-                <div class="logo">
-                    <div class="logo-image">
-                        <img src="images/logo.png" alt="SomniCare">
-                    </div>
-                </div>
+    <div class="container">
+        <div class="header-content">
 
-                <nav class="main-nav">
-                    <ul class="nav-links">
-                        <li><a href="index.php">Accueil</a></li>
-                        <li><a href="troubles-sommeil.php">Les troubles du sommeil</a></li>
-                        <li><a href="somnyl.php">Somnyl</a></li>
-                        <li><a href="methode.php">Méthode</a></li>
-                        <li><a href="contact.php">Contact</a></li>
-                    </ul>
-                </nav>
-
-                <div class="header-right">
-                    <a href="panier.php" class="btn-identifier"> Panier</a>
-                    <a href="logout.php" class="btn-identifier"> Déconnexion</a>
+            <!-- Logo -->
+            <div class="logo">
+                <div class="logo-image">
+                    <img src="images/logo.png" alt="SomniCare">
                 </div>
             </div>
+
+            <!-- Navigation -->
+            <nav class="main-nav">
+                <ul class="nav-links">
+                    <li><a href="index.php">Accueil</a></li>
+                    <li><a href="troubles-sommeil.php">Les troubles du sommeil</a></li>
+                    <li><a href="somnyl.php">Somnyl</a></li>
+                    <li><a href="methode.php">Méthode</a></li>
+                    <li><a href="contact.php">Contact</a></li>
+                </ul>
+            </nav>
+
+            <!-- Côté droit -->
+            <div class="header-right">
+
+                <!-- Langue -->
+                <div class="language-selector">
+                    <i class="fas fa-globe language-icon"></i>
+                    <span class="language-text">FR</span>
+                </div>
+
+                <!-- Bouton dynamique -->
+                <?php if (isset($_SESSION['id_utilisateur'], $_SESSION['role'])): ?>
+
+                    <?php if ($_SESSION['role'] === 'specialiste'): ?>
+                        <a href="espace_medecin.php" class="btn-identifier">
+                            Espace médecin (<?= htmlspecialchars($_SESSION['prenom']) ?>)
+                        </a>
+                    <?php else: ?>
+                        <a href="espace.php" class="btn-identifier">
+                            Mon espace (<?= htmlspecialchars($_SESSION['prenom']) ?>)
+                        </a>
+                    <?php endif; ?>
+                    <a href="logout.php" class="btn-logout">Se déconnecter</a>
+
+                <?php else: ?>
+                    <a href="connexion.php" class="btn-identifier">S'identifier</a>
+                <?php endif; ?>
+
+            </div>
         </div>
+    </div>
 </header>
 <header class="page-header">
     <h1>Dossier patient</h1>

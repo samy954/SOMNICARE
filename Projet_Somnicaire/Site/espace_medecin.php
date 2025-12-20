@@ -146,7 +146,7 @@ $nbRdvTermines = $stmt->get_result()->fetch_assoc()['total'];
                             Mon espace (<?= htmlspecialchars($_SESSION['prenom']) ?>)
                         </a>
                     <?php endif; ?>
-
+                        <a href="logout.php" class="btn-logout">Se déconnecter</a>
                 <?php else: ?>
                     <a href="connexion.php" class="btn-identifier">S'identifier</a>
                 <?php endif; ?>
@@ -191,7 +191,6 @@ $nbRdvTermines = $stmt->get_result()->fetch_assoc()['total'];
         <div style="display:flex; gap:15px; flex-wrap:wrap;">
             <a href="medecin_rdv.php" class="btn-table">📅 Gérer mes rendez-vous</a>
             <a href="medecin_patients.php" class="btn-table">👤 Voir mes patients</a>
-            <a href="medecin_profil.php" class="btn-table">⚙️ Mon profil</a>
         </div>
     </section>
 

@@ -4,7 +4,7 @@ session_start();
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
-// === Connexion à la base de données ===
+// Connexion à la base de données
 $servername = "localhost";
 $username = "root";
 $password = "root"; 
@@ -104,7 +104,7 @@ $conn->close();
                             Mon espace (<?= htmlspecialchars($_SESSION['prenom']) ?>)
                         </a>
                     <?php endif; ?>
-
+                        <a href="logout.php" class="btn-logout">Se déconnecter</a>
                 <?php else: ?>
                     <a href="connexion.php" class="btn-identifier">S'identifier</a>
                 <?php endif; ?>

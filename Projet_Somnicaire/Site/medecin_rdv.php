@@ -139,6 +139,7 @@ $rendezVous = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
                             Mon espace (<?= htmlspecialchars($_SESSION['prenom']) ?>)
                         </a>
                     <?php endif; ?>
+                    <a href="logout.php" class="btn-logout">Se déconnecter</a>
 
                 <?php else: ?>
                     <a href="connexion.php" class="btn-identifier">S'identifier</a>

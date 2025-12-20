@@ -1,5 +1,5 @@
 <?php
-// === CONFIGURATION BASE DE DONNÉES SOMNICARE ===
+//CONFIGURATION BASE DE DONNÉES SOMNICARE
 $servername = "localhost";
 $username = "root";
 $password = "root"; // mot de passe par défaut de MAMP

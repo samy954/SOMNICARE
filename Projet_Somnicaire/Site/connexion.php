@@ -1,7 +1,7 @@
 <?php
 session_start();
 
-// === Connexion à la base de données ===
+// Connexion à la base de données
 $servername = "localhost";
 $username = "root";
 $password = "root"; 
@@ -14,7 +14,7 @@ if ($conn->connect_error) {
 
 $error = "";
 
-// === Traitement du formulaire ===
+//Traitement du formulaire 
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $email = trim($_POST["email"]);
     $mot_de_passe = $_POST["mot_de_passe"];
@@ -107,7 +107,7 @@ $conn->close();
                             Mon espace (<?= htmlspecialchars($_SESSION['prenom']) ?>)
                         </a>
                     <?php endif; ?>
-
+                        <a href="logout.php" class="btn-logout">Se déconnecter</a>
                 <?php else: ?>
                     <a href="connexion.php" class="btn-identifier">S'identifier</a>
                 <?php endif; ?>

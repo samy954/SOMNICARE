@@ -179,6 +179,21 @@ footer {
     color: #bdc3c7;
 }
 
+.btn-logout {
+    background-color: #555269;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 6px;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 600;
+    transition: background-color 0.3s;
+}
+.btn-logout:hover {
+    background-color: #2980b9;
+}
+
+
 /* Responsive */
 @media (max-width: 768px) {
     .header-content {

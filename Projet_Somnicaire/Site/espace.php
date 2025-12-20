@@ -4,26 +4,20 @@ ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 session_start();
 
-/* ======================
-   CONNEXION BDD
-====================== */
+/*CONNEXION BDD*/
 $conn = new mysqli("localhost", "root", "root", "somnicare");
 if ($conn->connect_error) {
     die("Erreur de connexion : " . $conn->connect_error);
 }
 
-/* ======================
-   SÉCURITÉ
-====================== */
+/*SÉCURITÉ */
 if (!isset($_SESSION["id_utilisateur"])) {
     header("Location: connexion.php");
     exit();
 }
 $id_utilisateur = $_SESSION["id_utilisateur"];
 
-/* ======================
-   UTILISATEUR
-====================== */
+/*UTILISATEUR */
 $stmt = $conn->prepare("
     SELECT nom, prenom, email,
     DATE_FORMAT(date_creation,'%d/%m/%Y') AS date_creation
@@ -34,9 +28,7 @@ $stmt->bind_param("i", $id_utilisateur);
 $stmt->execute();
 $user = $stmt->get_result()->fetch_assoc();
 
-/* ======================
-   RENDEZ-VOUS
-====================== */
+/*RENDEZ-VOUS */
 $stmt = $conn->prepare("
     SELECT id_rdv, date_rdv, heure_rdv, statut
     FROM rendez_vous
@@ -57,9 +49,7 @@ $stmt->bind_param("i", $id_utilisateur);
 $stmt->execute();
 $rdv_passe = $stmt->get_result();
 
-/* ======================
-   COMMANDES
-====================== */
+/*COMMANDES*/
 $stmt = $conn->prepare("
     SELECT id_commande,
            DATE_FORMAT(date_commande,'%d/%m/%Y') AS date_commande,
@@ -72,9 +62,7 @@ $stmt->bind_param("i", $id_utilisateur);
 $stmt->execute();
 $commandes = $stmt->get_result();
 
-/* ======================
-   STATISTIQUES
-====================== */
+/*STATISTIQUES*/
 $nb_rdv_avenir = $conn->query("
     SELECT COUNT(*) c FROM rendez_vous
     WHERE id_client=$id_utilisateur AND date_rdv>=CURDATE()
@@ -90,9 +78,7 @@ $nb_cmd = $conn->query("
     WHERE id_client=$id_utilisateur
 ")->fetch_assoc()["c"];
 
-/* ======================
-   SUIVI SOMMEIL
-====================== */
+/*SUIVI SOMMEIL*/
 $stmt = $conn->prepare("
     SELECT
         date_nuit,
@@ -138,32 +124,57 @@ foreach ($nuits as $n) {
     <body>
         <!-- HEADER -->
         <header>
-            <div class="container">
-                <div class="header-content">
-                    <div class="logo">
-                        <div class="logo-image">
-                            <img src="images/logo.png" alt="SomniCare">
-                        </div>
-                    </div>
+    <div class="container">
+        <div class="header-content">
 
-                    <nav class="main-nav">
-                        <ul class="nav-links">
-                            <li><a href="index.php">Accueil</a></li>
-                            <li><a href="troubles-sommeil.php">Les troubles du sommeil</a></li>
-                            <li><a href="somnyl.php">Somnyl</a></li>
-                            <li><a href="methode.php">Méthode</a></li>
-                            <li><a href="contact.php">Contact</a></li>
-                        </ul>
-                    </nav>
-
-                    <div class="header-right">
-                        <a href="panier.php" class="btn-identifier"> Panier</a>
-                        <a href="logout.php" class="btn-identifier"> Déconnexion</a>
-                    </div>
+            <!-- Logo -->
+            <div class="logo">
+                <div class="logo-image">
+                    <img src="images/logo.png" alt="SomniCare">
                 </div>
             </div>
-        </header>
 
+            <!-- Navigation -->
+            <nav class="main-nav">
+                <ul class="nav-links">
+                    <li><a href="index.php">Accueil</a></li>
+                    <li><a href="troubles-sommeil.php">Les troubles du sommeil</a></li>
+                    <li><a href="somnyl.php">Somnyl</a></li>
+                    <li><a href="methode.php">Méthode</a></li>
+                    <li><a href="contact.php">Contact</a></li>
+                </ul>
+            </nav>
+
+            <!-- Côté droit -->
+            <div class="header-right">
+
+                <!-- Langue -->
+                <div class="language-selector">
+                    <i class="fas fa-globe language-icon"></i>
+                    <span class="language-text">FR</span>
+                </div>
+
+                <!-- Bouton dynamique -->
+                <?php if (isset($_SESSION['id_utilisateur'], $_SESSION['role'])): ?>
+
+                    <?php if ($_SESSION['role'] === 'specialiste'): ?>
+                        <a href="espace_medecin.php" class="btn-identifier">
+                            Espace médecin (<?= htmlspecialchars($_SESSION['prenom']) ?>)
+                        </a> 
+                    <?php else: ?>
+                        <a href="panier.php" class="btn-identifier">
+                            Panier 
+                        </a>
+                    <?php endif; ?>
+                        <a href="logout.php" class="btn-logout">Se déconnecter</a>
+                <?php else: ?>
+                    <a href="connexion.php" class="btn-identifier">S'identifier</a>
+                <?php endif; ?>
+
+            </div>
+        </div>
+    </div>
+</header>
         <!-- CONTENU PRINCIPAL -->
         <section class="page-header">
             <div class="container">

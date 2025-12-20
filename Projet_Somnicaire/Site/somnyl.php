@@ -1,7 +1,7 @@
 <?php
 session_start();
 
-// 🟣 Gestion du bouton "Ajouter au panier"
+// Gestion du bouton "Ajouter au panier"
 if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["add_to_cart"])) {
 
     // Vérifie si l'utilisateur est connecté
@@ -15,7 +15,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["add_to_cart"])) {
         $_SESSION["panier"] = [];
     }
 
-    // 🟢 Prix officiels par taille (SÉCURITÉ)
+    // Prix officiels par taille (SÉCURITÉ)
     $prixParTaille = [
         "30"  => 19.90,
         "60"  => 34.90,
@@ -34,13 +34,13 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["add_to_cart"])) {
     $produit = [
         "id" => 1,
         "nom" => "Somnyl - Gélules",
-        "prix" => $prixParTaille[$taille], // ✅ PRIX DYNAMIQUE
+        "prix" => $prixParTaille[$taille],
         "quantite" => 1,
         "taille" => $taille,
         "image" => "images/gelules.png"
     ];
 
-    // Si le produit existe déjà dans le panier (même taille)
+    // Si le produit existe déjà dans le panier
     $existe = false;
     foreach ($_SESSION["panier"] as &$item) {
         if ($item["id"] == $produit["id"] && $item["taille"] == $produit["taille"]) {
@@ -70,7 +70,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["add_to_cart"])) {
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
-  <!-- ✅ HEADER IDENTIQUE À INDEX -->
+  <!--  HEADER IDENTIQUE À INDEX -->
   <header>
     <div class="container">
         <div class="header-content">
@@ -114,6 +114,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["add_to_cart"])) {
                             Mon espace (<?= htmlspecialchars($_SESSION['prenom']) ?>)
                         </a>
                     <?php endif; ?>
+                    <a href="logout.php" class="btn-logout">Se déconnecter</a>
 
                 <?php else: ?>
                     <a href="connexion.php" class="btn-identifier">S'identifier</a>
@@ -124,7 +125,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["add_to_cart"])) {
       </div>
   </header>
 
-  <!-- ✅ CONTENU PRODUIT -->
+  <!-- CONTENU PRODUIT -->
   <main class="container">
     <div class="left">
       <div class="thumbs">
@@ -151,7 +152,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["add_to_cart"])) {
         <li>Idéal pour rétablir un cycle de sommeil harmonieux et profond, sans accoutumance ni sensation de fatigue au réveil.</li>
       </ul>
 
-      <!-- 🟣 FORMULAIRE AJOUT PANIER -->
+      <!-- FORMULAIRE AJOUT PANIER -->
       <form method="POST">
         <h3 class="label">TAILLE</h3>
         <div class="sizes">
@@ -185,16 +186,16 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["add_to_cart"])) {
     </div>
   </main>
   <script>
-/* 1️⃣ On récupère tous les boutons de taille */
+/* On récupère tous les boutons de taille */
     const sizeBtns = document.querySelectorAll(".size");
 
-/* 2️⃣ On récupère l’input caché */
+/*  On récupère l’input caché */
     const sizeInput = document.getElementById("selectedSize");
 
-/* 3️⃣ On récupère l’endroit où le prix est affiché */
+/*  On récupère l’endroit où le prix est affiché */
     const priceSpan = document.getElementById("price");
 
-/* 4️⃣ Tableau des prix (AFFICHAGE UNIQUEMENT) */
+/* Tableau des prix (AFFICHAGE UNIQUEMENT) */
     const prixParTaille = {
       30: 19.90,
       60: 34.90,
@@ -202,7 +203,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["add_to_cart"])) {
       120: 64.90
     };
 
-/* 5️⃣ Quand on clique sur un bouton */
+/*  Quand on clique sur un bouton */
     sizeBtns.forEach(btn => {
       btn.addEventListener("click", () => {
 
@@ -248,13 +249,10 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["add_to_cart"])) {
   thumbs.forEach(thumb => {
     thumb.addEventListener("click", () => {
 
-      // 1️⃣ Changer l’image principale
       mainImage.src = thumb.src;
 
-      // 2️⃣ Enlever l'état actif de toutes les miniatures
       thumbs.forEach(t => t.classList.remove("active"));
 
-      // 3️⃣ Ajouter l'état actif à la miniature cliquée
       thumb.classList.add("active");
     });
   });
